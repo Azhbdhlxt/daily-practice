@@ -18,7 +18,7 @@ int solve (int tar,  int *meta,  int metan, int *seed = NULL, int seedn = 0 )
 		if (meta [i]<= tar)
 		{
 			seed1[seedn] = meta[i];
-			
+			m =solve (tar - meta [i], meta, metan, seed1, seedn +1);
 			if (m != -1 && (min ==-1||min>m))
 			min = m;
 			break; 

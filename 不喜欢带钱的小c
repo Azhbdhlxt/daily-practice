@@ -1,0 +1,39 @@
+//小c不喜欢带钱，有一次竟被他碰上一家不能使用移动支付还不能找前的商店温至少准备多少张RMB才能恰好支付n元。RMB面额有100，50，20，10，5，1
+//输入整数n，输出带几张
+#include <iostream>
+using namespace std; 
+int solve (int tar,  int *meta,  int metan, int *seed = NULL, int seedn = 0 )
+{
+	if (tar == 0)
+	{
+		return seedn;
+	}
+	int min = -1;
+	int m;
+	int *seed1 = new int[seedn + 1];
+	if (seed)
+	memcpy (seed1 , seed, sizeof (int)* seedn);
+	for (int i = 0; i< metan; i++)
+	{
+		if (meta [i]<= tar)
+		{
+			seed1[seedn] = meta[i];
+			
+			if (m != -1 && (min ==-1||min>m))
+			min = m;
+			break; 
+		}
+	}
+	delete[] seed1;
+	return min; 
+ } 
+ int main()
+ {
+   int arr[] ={100, 50, 20, 10, 5, 1};
+   int n= 6;
+   int total;
+   cin>>total;
+   int result = solve(total, arr, n);
+   cout<<result<<endl;
+   return 0;	
+ }

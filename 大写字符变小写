@@ -1,0 +1,11 @@
+#include <stdio.h>
+int main(int argc[], char *argv[])
+{
+    char ch;
+    printf("Press a key and then press Enter");
+    ch = getchar(); //从键盘输入字符，回车结束，该字符保存ch中
+    ch = ch + 32;   //大写字符变小写
+    putchar(ch);    //在屏幕显示ch字符
+    putchar('\n');  //输出回车换行控制符
+    return 0;
+}

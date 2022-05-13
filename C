@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#define EPS 1e-6
+int main(int argc, char *argv[])
+{
+   float a, b, c, disc, p, q;
+   printf("请输入 a, b, c:\n");
+   scanf("%f, %f, %f", &a, &b, &c);
+   if(fabs(a) <= EPS)//a=0不是二次方程；
+   {
+       printf("这不是二次方程");
+       exit(0);
+
+   }
+   disc= b * b - 4 * a * c;//判别式
+   p = -b/ (2 * a);
+   q =sqrt  (fabs (disc) );// ( 2 * a );
+   if(fabs(disc) <= EPS)//判别式=0输出相等实根
+   {
+       printf("x1 = %.2f, x2 = %. 2f \n", p + q, p - q);
+
+}
+else
+{
+   printf("x1 = %.2f + %.2fi", p, q);
+   printf("x2 = %.2f - %.2fi\n", p, q);
+
+}
+return 0;
+}

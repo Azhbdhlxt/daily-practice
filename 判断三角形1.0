@@ -1,0 +1,44 @@
+//该版本将上个版本12~21修改，先判断是否为等边三角形然后判断是否为等腰三角形
+//因为等边三角形是等腰三角形的一种特例，不是等腰三角形一定不是等边三角形，但等边三角形却可能是等腰三角形
+#include <stdio.h>
+#include <math.h>
+#define EPS 1e-1
+int main(int argc, char* argv[])
+{
+    float a, b, c;
+    int flag = 1;
+    printf("输入a, b, c");
+    scanf("%f, %f, %f", &a, &b, &c);
+    if (a + b >c && b + c> a && a + c > b)
+    {
+        if (fabs(a - b)<= EPS && fabs(b -c)<= EPS && fabs(c-a)<=EPS)
+        {
+            printf("等边");
+            flag = 0;
+
+        }
+        else if (fabs(a-b)<=EPS || fabs(c - a)<= EPS || fabs(b - c)<= EPS)
+        {
+            printf("等腰");
+            flag = 0;
+
+        }
+        if (fabs( a * a+ b * b - c * c)<= EPS|| fabs( a * a + c * c -b * b)<= EPS||fabs(c * c + b * b - a * a)<= EPS)
+        {
+            printf("直角");
+            flag = 0;
+
+        }
+        if(flag )
+        {
+            printf("一般");
+
+        }
+         printf("三角形");
+    }
+    else
+    {
+        printf("不是三角形");
+    }
+    return 0;
+}

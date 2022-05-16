@@ -1,0 +1,13 @@
+#include <easyx.h>
+#include <windows.h>
+#include <graphics.h>
+#include <stdlib.h>
+#include <stdio.h> 
+int main()
+{
+	initgraph(640, 480);
+	circle(320, 240, 200);
+	system("pause0");
+	closegraph();
+	return 0;
+}

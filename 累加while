@@ -1,0 +1,19 @@
+#include<stdio.h>
+
+
+
+int main(int argc, char* argv[])
+{
+  int i, n , sum;
+  printf("输入n\n");
+  scanf("%d", &n);
+  sum = 0;
+  i = 1;
+  while (i <= n)
+  {
+  	sum = sum + i;
+  	i ++;
+  }
+  printf("sum = %d", sum);
+  return 0;
+}

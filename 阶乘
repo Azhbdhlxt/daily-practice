@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+
+int main(int argc, char* argv[])
+{
+   int i, n;
+   
+   long p = 1;
+   
+   printf("输入n");
+   
+   scanf("%d", &n);
+   
+   for (i = 1; i <= n; i++)
+{
+	p = p * i;
+  
+	printf("%d! = %ld\n" , i, p);
+   
+	
+}
+  return 0;
+}

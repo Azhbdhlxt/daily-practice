@@ -1,0 +1,25 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+
+#include<math.h>
+
+#include<graphics.h>
+
+int main(int argc, char* argv[])
+{
+  int magic, i;
+  
+  srand (1);
+  //设随机数种子为1 ,随机数种子不同程序执行是就会产生不同随机数序列 
+  for (i = 0; i < 10; i ++)
+  {
+  	magic = rand ()% 100 + 1;
+    
+  	printf("%d\n", magic);
+    
+   } 
+    printf("\n");
+    
+    return 0;
+}

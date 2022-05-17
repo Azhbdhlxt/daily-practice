@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<graphics.h>
+#include<time.h>
+int main(int argc, char* argv[])
+{
+   printf("--------------------------------------------------------\n");
+   
+   printf("--嵌套循环break,continue只对包含他们的最内层循环起作用--\n");
+   
+   printf("----------要跳出多重循环，break语句只能一层层跳----------\n");
+   
+   printf("特别适合goto情形：\n1.快速跳出多重循环\n2.跳出共同的出口位置，进行退出前错误处理工作\n"); 
+   
+  return 0;
+}

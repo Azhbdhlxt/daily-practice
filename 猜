@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<stdlib.h> 
+
+int main(int argc, char* argv[])
+{
+  int magic, guess;
+  
+  magic = rand();
+  
+  printf("请输入您猜想的数"); 
+  
+  scanf("%d",&guess);
+  
+  if(guess > magic)
+  
+  printf("Too big");
+  
+  else  if (guess < magic ) 
+  
+  printf("Too small");
+  
+  else
+  
+  printf("Right");
+  
+  return 0;
+  
+}

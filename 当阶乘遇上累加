@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+
+int main(int argc, char* argv[])
+{
+  int i , j , n;
+  
+  long p, sum = 0;
+  
+  printf("输入n:\n");
+  
+  scanf("%d", &n);
+  
+  for (i = 1; i <= n; i ++ ) 
+{
+	p = 1;
+  //每次循环前将累乘求积变量P赋值1
+	for (j = 1; j <= i; j++)
+	{
+		p = p * j;
+    
+	 } 
+	 sum = sum + p;
+   
+}
+  printf("1! + 2! + 3! + ~ + %d! = %ld\n", n, sum);
+  
+  return 0;
+}

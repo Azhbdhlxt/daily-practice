@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<graphics.h>
+#include<time.h>
+int main(int argc, char* argv[])
+{
+   int magic, guess, counter=0;
+   /*计数器，记录用户猜的次数，初始化为0*/
+   srand(time(NULL));
+   //函数time()返回以秒计算的日历时间，使用NULL作为time()参数时
+   //time(NULL)返回值被转换为无符号整数作为随机数种子 
+  magic = rand () % 100  + 1;
+  //生成1~100之间的随机数
+  do
+  {
+  	printf("输入猜想的值\n");
+    
+  	scanf("%d", &guess);
+    
+  	counter ++;
+    
+  	if (guess > magic )
+    
+  	printf("错了，太大\n");
+    
+	  else if (guess < magic )
+    
+	  printf("错了，太小\n");
+    
+	  else 
+    
+	  printf("正确\n");
+    
+	   
+   } while (guess != magic);
+   //执行循环才对为止 
+   printf("counter = %d\n", counter); 
+
+
+  return 0;
+}

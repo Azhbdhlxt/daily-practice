@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<graphics.h>
+#include<time.h>
+unsigned long Fact(unsigned int n);
+ 
+int main(int argc, char* argv[])
+{
+    int m;
+do{
+	printf("输入m(m>0):");
+	
+	scanf("%d", &m);
+	
+} while(m < 0);//增加对输入数据的限制，确保输入的数据为无符号整型 
+
+  printf("%d! = %lu\n", m, Fact(m));//输出无符号长整型阶乘值 
+  
+  return 0;
+}
+//用迭代法计算无符号整型变量阶乘 
+
+ unsigned long Fact(unsigned int n)//函数定义 
+	{
+	unsigned int i;
+	
+	unsigned long result = 1;
+	
+    for (i = 2; i <= n; i ++)
+    
+    result *= i;
+    
+	return result;
+	
+	 }
+

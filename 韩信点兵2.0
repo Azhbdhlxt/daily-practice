@@ -1,0 +1,22 @@
+//既使程序更简洁也不失可读性 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+int main(int argc, char* argv[])
+{
+  int x, find = 0;
+  //置找到标志变量为假 
+  do {
+  	x ++;
+  	
+  	find = (x % 5 == 1 && x % 6 == 5 && x % 7 == 4 && x % 11  == 10);
+  	
+  } while(!find);
+  
+  printf("x = %d\n", x);
+  
+  return 0;
+  
+}

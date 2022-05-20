@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+int main(int argc, char* argv[])
+{
+    int x;
+    
+   for (x = 1; ; x ++ )
+   {
+   	if (x % 5 == 1 && x % 6 == 5 && x % 7 == 4 && x % 11  == 10)
+   	
+   	{
+   		printf("x = % d\n", x );
+   		
+   		exit(0);
+		   // 程序退出后什么不做，直接结束程序运行 
+	   }
+   }
+
+  return 0;
+}

@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+#define N 40
+int Average(int score[], int n);
+int ReadScore(int score[]); 
+int FindMax(int score[], int n); 
+int main(int argc, char* argv[])
+{
+  int score[N], aver, n, max;
+  
+  n = ReadScore( score);
+  //调用ReadScore()输入成绩，返回学生人数 
+  
+  printf("总共学生有%d\n人", n);
+  
+  aver = Average(score, n);
+  //数组名作为函数实参调用Average() 
+  printf("平均数是%d\n", aver); 
+  
+  max = FindMax(score, n);
+  //调用函数计算最高分并返回值 
+  printf("最高分为%d\n", max); 
+  
+
+  return 0;
+  1
+}
+  int Average(int score[], int n)
+//Average()函数定义
+//函数功能：计算n个学生成绩的平均分 
+{
+	if(n <= 0) return -1; 
+    //增加函数入口参数合法有效性检验 
+	int i, sum = 0;
+	
+	for(i = 0; i < n; i ++)
+	{
+		sum += score[i];
+		
+	 } 
+	 return sum/n;
+	 //如果函数入口无检验函数参数合法性
+	 //这可改为 return n > 0 ? sum / n : -1 
+	 
+}
+int ReadScore(int score[])
+//函数功能：输入n个学生某门课成绩,输入成绩为负数时，结束输入，返回学生人数 
+//ReadScore()函数定义
+{
+	int i = -1;
+	//i初始化为-1，循环体内加1后保证数组下标从0开始 
+	do{
+		i ++;
+		
+		printf("输入成绩：");
+		 
+		scanf("%d", &score[i]);
+		 
+	} while(score[i] >= 0);
+	//输入负值时结束输入
+	return i;
+	//返回学生人数 
+	
+ }  
+int FindMax(int score[], int n)
+//计算最高分 
+{
+	int max, i;
+	
+	max = score[0];
+	
+	for(i = 1; i < n; i ++)
+	{
+		if(score[i] > max);
+		
+		max = score[i];
+	 } 
+	 return max;
+}
+

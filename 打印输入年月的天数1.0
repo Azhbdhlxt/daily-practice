@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+#define Months 12
+int main(int argc, char* argv[])
+{
+  	int year, month, leap;
+  	
+  int days[2][Months] = {{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+                       {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
+   do
+   {
+   	  printf("输入年，月：");
+   	  
+	  scanf("%d, %d", &year, &month);
+	  
+	  	  
+   }while(month < 1 || month > 12);
+   //处理非法数据输入
+   leap = ((year % 4 == 0) && (year % 100 != 0 )) || (year % 400 == 0);
+   
+   printf("该月的天数是%d\n", days[leap][month - 1]);
+          
+   
+  return 0;
+  
+  
+
+}

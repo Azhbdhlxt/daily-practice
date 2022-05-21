@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+#define Months 12 
+int main(int argc, char* argv[])
+{
+	int year, month;
+	
+  int days[][Months] = {{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+                       {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
+   do
+   {
+   	  printf("输入年，月：");
+   	  
+	  scanf("%d, %d", &year, &month);
+	  
+	  	  
+   }while(month < 1 || month > 12);
+   //处理非法数据输入
+   if(((year % 4 == 0) && (2020year % 100 != 0)) || (year % 400 == 0))
+   //判断是否为闰年
+   {
+   printf("该月的天数是%d\n", days[1][month - 1]);
+   }
+  else 
+  //非闰年 
+   	
+   printf("该月的天数是%d\n", days[0][month - 1]);         
+   
+  return 0;
+  
+}
+ 

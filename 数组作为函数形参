@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+#define N 40
+int Average (int score[], int n);
+//Average()函数原型
+void ReadScore (int score[], int n);
+//ReadScore()函数原型 
+int main(int argc, char* argv[])
+{
+  
+  int score[N], aver, n;
+  
+  printf("输入n:");
+  
+  scanf("%d", &n); 
+  
+  ReadScore(score, n);
+  //数组名作为函数实参调用函数ReadScore() 
+  aver = Average(score, n);
+  //数组名作为函数实参调用Average() 
+  printf("平均数是%d\n", aver); 
+  
+  return 0;
+  
+}
+int Average(int score[], int n)
+//Average()函数定义
+//函数功能：计算n个学生成绩的平均分 
+{
+	if(n <= 0) return -1; 
+    //增加函数入口参数合法有效性检验 
+	int i, sum = 0;
+	
+	for(i = 0; i < n; i ++)
+	{
+		sum += score[i];
+		
+	 } 
+	 return sum/n;
+	 //如果函数入口无检验函数参数合法性
+	 //这可改为 return n > 0 ? sum / n : -1 
+	 
+}
+void ReadScore(int score[], int n)
+//函数功能：输入n个学生某门课成绩
+//ReadScore()函数定义
+{
+	int i;
+	
+	printf("输入分数");
+	
+	for (i = 0; i < n; i ++)
+	{
+		scanf("%d", &score[i]);
+		
+		
+	 } 
+ } 

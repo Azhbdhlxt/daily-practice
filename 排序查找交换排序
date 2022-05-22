@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+#define N 40
+int ReadScore(int score[]);
+void DataSort(int score[], int n);
+void PrintScore(int score[], int n); 
+
+int main(int argc, char* argv[])
+{
+  int score[N], n;
+  
+  n = ReadScore(score);
+  //调用函数输入成绩，返回学生人数 
+  printf("学生总数是%d\n", n);
+  
+  DataSort(score, n);
+  //调用函数进行成绩排序 
+  printf("排序成绩：");
+  
+  PrintScore(score, n);
+  // 输出排序结果 
+  return 0;
+  
+}
+
+int ReadScore(int score[])
+{
+	int i = -1;
+	//初始化为-1，保证循环体内i增1后数组下标从0开始 
+	do
+	{
+		i ++;
+		
+		printf("输入成绩：");
+		
+		scanf("%d", &score[i]);
+		
+		
+	}while(score[i] >= 0);
+	
+	return i;
+	
+}
+
+void DataSort(int score[], int n)
+//交换法将数组score元素值从高到低排序 
+{
+	int i, j, temp;
+	
+	for(i = 0; i < n - 1; i ++)
+	{
+		for(j = i + 1; j < n; j++)
+		{
+			if(score[j] > score[i]) 
+			{
+				temp = score[j];
+				
+				score[j] = score[i];
+				
+				score[i] = temp;
+				
+			}
+		}
+	}
+}
+void PrintScore(int score[], int n)
+//打印学生成绩 
+{
+	int i;
+	
+	for(i = 0; i < n; i ++)
+	{
+		printf("%4d", score[i]);
+		
+	}
+	printf("\n");
+	
+}

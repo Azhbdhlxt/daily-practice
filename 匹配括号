@@ -1,0 +1,156 @@
+/*括号配对算法*/
+#include "stdio.h"
+#define MAXSIZE 100
+typedef struct
+{
+	char data[MAXSIZE];
+  
+	int top;
+  
+}SEQSTACK;
+
+/*初始化栈*/
+void intistack(SEQSTACK *s)
+{
+	s->top=0;
+  
+}
+/*判断栈空*/
+
+int empty(SEQSTACK *s)
+{
+	if(s->top==0)
+  
+		return 1;
+    
+	else
+  
+		return 0;
+}
+/*进栈*/
+int push(SEQSTACK *s,char x)
+{
+	if(s->top==MAXSIZE-1)
+  
+	{
+		printf("overflow\n");
+    
+		return 0;
+    }
+	else
+  {
+		s->top++;
+    
+		(s->data)[s->top]=x;
+    
+		return 1;
+    }
+}
+/*出栈*/
+char pop(SEQSTACK *s)
+{
+	char x;
+  
+	if(empty(s))
+	{
+		printf("underflow\n");
+    
+		x=NULL;
+    }
+	else
+  {
+		x=(s->data)[s->top];
+    
+		s->top--;
+    }
+	return x;
+  
+}
+/*从键盘输入括号进行匹配*/
+int check(SEQSTACK *s)
+{
+	char ch,x;
+ 
+	while((ch=getchar())!='\n')
+	{
+	switch(ch)
+	{
+	case '(':
+  
+	case '[':
+  
+	case '{':
+  
+  push(s,ch);
+  break;
+	case ')':
+  if(empty(s))
+  return 0;
+	else 
+  {
+    x=pop(s);
+    
+		  if(x!='(')
+      
+      return 0;
+      
+      }
+      break;
+      
+        case ']':
+        
+        if(empty(s))
+        return 0;
+		           else
+               {
+               x=pop(s);
+               
+		                 if(x!='[')
+                     
+                     return 0;
+                     }
+                     
+                     break;
+                     
+	case '}':
+  
+  if(empty(s))
+  
+  return 0;
+  
+  else {x=pop(s);
+		                 if(x!='{')
+                     return 0;
+                     }
+                     break;
+	default:break;
+	}
+}
+if(empty(s)) 
+
+return 1;
+
+else 
+
+return 0;
+}
+void main()
+{int m;
+
+SEQSTACK stack ,*s;
+
+s=&stack;
+
+intistack(s);
+
+printf("请输入各种括号进行配对：\n");
+
+m=check(s);
+
+if(m)printf("括号匹配成功！\n");
+
+else
+
+printf("括号匹配不成功！\n");
+
+}

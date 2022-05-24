@@ -1,0 +1,142 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct node
+{char data;
+
+struct node *next;
+
+}LINKLIST;
+
+/*以下程序段的功能为尾插入法建立单链表*/
+void creat(LINKLIST *head)
+{
+	LINKLIST *t,*p;
+  
+	char ch;
+  
+	p=head;
+  
+	printf("请从键盘上输入一串字符，以字符$作为输入的结束符号：");
+  
+	while((ch=getchar())!='$')
+	 {
+		 t=(LINKLIST *)malloc(sizeof(LINKLIST));
+     
+		 t->data=ch;
+     
+		 t->next=p->next;
+     
+		 p->next=t;
+     
+		 p=p->next;
+     
+	 }
+}
+/*以下程序段的功能为输出单链表的各结点的值*/
+void print(LINKLIST *head)
+{
+	 LINKLIST *p;
+   
+	 p=head->next;
+   
+	 printf("head");
+   
+	 while(p!=NULL)
+	 {printf("-->%c",p->data);
+   
+	    p=p->next;
+      
+	 }
+	 printf("\n");
+   
+}
+/*以下程序段的功能为在单链表中插入一个元素*/
+void insert(LINKLIST *head,int x)
+{
+	 LINKLIST *p,*t;
+   
+	 char ch;
+   
+	 int i=0;
+   
+	 printf("请输入要输入的结点的值：");
+   
+	 scanf("%c",&ch);
+   
+	 p=head;
+   
+	 while(p->next!=NULL&&i<x)
+	 {i++;
+   
+	  p=p->next;
+    
+	 }
+	 t=(LINKLIST *)malloc(sizeof(LINKLIST));
+   
+	 t->data=ch;
+   
+	 t->next=p->next;
+   
+	 p->next=t;
+   
+}
+/*以下程序段的功能为在单链表中删除一个元素*/
+void deletenode(LINKLIST *head,int i)
+{
+	LINKLIST *p,*s;
+  
+	p=head;
+  
+	int j=0;
+  
+	while(p->next!=NULL&&j<i-1)
+		{j++;
+    
+		p=p->next;
+    
+		}
+	s=p->next;
+  
+	p->next=s->next;
+  
+	free(s);
+  
+}
+/*主函数*/
+void main()
+{
+	 LINKLIST *head;
+   
+	 int i;
+   
+	 head=(LINKLIST *)malloc(sizeof(LINKLIST));
+   
+	 head->next=NULL;
+   
+	 creat(head);
+   
+	 printf("建立的单链表为：");
+   
+   print(head);
+         
+	 printf("请输入要插入结点的位置(0-n)：");
+   
+	 scanf("%d",&i);
+   
+	 getchar（）;
+   
+	 insert(head,i-1);
+   
+   printf("插入元素后的单链表为：");
+   
+    print(head);
+         
+    printf("请输入要删除的结点 (0-n)：");
+    
+	 scanf("%d",&i);
+   
+         deletenode(head,i);
+         
+	 print(head);
+   
+}

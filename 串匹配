@@ -1,0 +1,53 @@
+#include <stdio.h>
+int index(char *s,char *t)
+{  
+	int i=0,j=0;
+  
+    while(s[i]!='\0'&&t[j]!='\0')
+	   if(s[i]==t[j])
+     
+	   {
+     ++;
+     
+	    j++;
+	   }
+	   else
+	   {
+     i=i-j+1;
+     
+	   j=0;
+     
+	   }
+	   if(t[j]=='\0')
+     
+		   return i-j+1;
+       
+	   else return 0;
+     
+}
+void main()
+{
+
+	char s[100],t[20];
+  
+    int i;
+    
+	printf("请输入符串s：\n");
+  
+	gets(s);
+  
+	printf("请输入符串t：\n");
+  
+	gets(t);
+  
+	i=index(s,t);
+  
+	if(i!=0)
+  
+		printf("字符串t在字符串s中存在，位置为%d\n",i);
+    
+	else
+  
+		printf("字符串t在字符串s中不存在\n");	
+    
+}

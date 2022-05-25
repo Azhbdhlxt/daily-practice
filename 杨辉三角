@@ -1,0 +1,100 @@
+#include <stdio.h>
+#define QUEUESIZE  100
+typedef struct
+{
+	int data[QUEUESIZE];
+  
+	int front,rear;
+  
+}CYQUEUE;
+
+/*初始化队列*/
+void initqueue(CYQUEUE *q)
+{
+	q->front=q->rear=0;
+  
+}
+/*判队列空*/
+int emptyqueuq(CYQUEUE *q)
+{
+	if(q->rear==q->front)
+		return 1;
+    
+	else return 0;
+  
+}
+/*入队*/
+int inqueue(CYQUEUE *q,int x)
+{
+	if(q->front==(q->rear+1)%QUEUESIZE)
+  
+		return 0;
+    
+	else
+		q->rear=(q->rear+1)%QUEUESIZE;
+    
+	q->data[q->rear]=x
+  
+    return 1;
+    
+}
+/*出队*/
+int outqueue(CYQUEUE *q)
+{
+	int x;
+  
+	if(q->rear==q->front)
+		return 0;
+    
+	else
+		q->front=(q->front+1)%QUEUESIZE;
+    
+	x=q->data[q->front];
+  
+	return x;
+  
+}
+/*输出杨辉三角*/
+void printyanghui(int n)
+{
+	int s1,s2,i,j;
+  
+	CYQUEUE q;
+  
+	initqueue(&q);
+  
+	printf("i\n");
+  
+	inqueue(&q,1);
+  
+	for(i=2;i<=n;i++)
+	{
+		s1=0;
+    
+		for(j=1;j<=i-1;j++)
+		{
+			s2=outqueue(&q);
+      
+			printf("%d     ",s1+s2);
+     
+			inqueue(&q,s1+s2);
+      
+			s1=s2;
+      
+		}
+		printf("1\n");
+    
+		inqueue(&q,1);
+    
+	}
+}
+void main()
+{
+	int n;
+	printf("输入杨辉三角要显示的行数:");
+  
+	scanf("%d",&n);
+  
+	printyanghui(n);
+  
+}

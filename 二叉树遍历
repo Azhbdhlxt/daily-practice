@@ -1,46 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct node1
-{ char data;
+{
+char data;
+
   struct node1 *lchild,*rchild;
+  
  }BTCHINALR;
+ 
 /*二叉树的建立*/
 BTCHINALR *createbt()
 {
   BTCHINALR *q;
+  
   struct node1 *s[30];
+  
   int i,j;
+  
   char x;
+  
   printf("请输入节点编号i和节点的值x:\n");
+  
   printf("i,x=");
+  
   scanf("%d,%c",&i,&x);
+  
   while(i!=0&&x!='$')
-  {q=(BTCHINALR *)malloc(sizeof(BTCHINALR));
+  
+  {
+  q=(BTCHINALR *)malloc(sizeof(BTCHINALR));
+  
    q->data=x;
+   
    q->lchild=NULL;
+   
    q->rchild=NULL;
+   
    s[i]=q;
+   
    if(i!=1)
-     {j=i/2;
+     {
+     j=i/2;
+     
       if(i%2==0)
        s[j]->lchild=q;
+       
       else
        s[j]->rchild=q;
+       
      }
    printf("请输入节点编号i和节点的值x:\n");
+   
    printf("i,x=");
+   
    scanf("%d,%c",&i,&x);
+   
   }
 return s[1];
+
 }
 /*二叉树的先序遍历*/
 void preorder(BTCHINALR *bt)
 {
 	if(bt!=NULL)
+	
 	{
 	 printf("%c",bt->data);
+	 
 	 preorder(bt->lchild);
+	 
          preorder(bt->rchild);
+	 
 	}
 }
 /*二叉树的中序遍历*/
@@ -49,8 +79,11 @@ void inorder(BTCHINALR *bt)
 	if(bt!=NULL)
 	{
 	 inorder(bt->lchild);
+	 
 	 printf("%c",bt->data);
+	 
          inorder(bt->rchild);
+	 
 	}
 }
 /*二叉树的后序遍历*/
@@ -59,8 +92,11 @@ void postorder(BTCHINALR *bt)
 	if(bt!=NULL)
 	{
 	 postorder(bt->lchild);
+	 
          postorder(bt->rchild);
+	 
 	 printf("%c",bt->data);
+	 
 	}
 }
 /*二叉树结点总数*/
@@ -85,31 +121,56 @@ int leaf(BTCHINALR *bt)
 int depth(BTCHINALR *bt)
 {
 	int dep1,dep2;
+	
 	if(bt==NULL)
 		return 0;
+		
 	else {dep1=depth(bt->lchild);
+	
 	      dep2=depth(bt->rchild);
+	      
 		  if(dep1>dep2)return (dep1+1);
+		  
 		  else return (dep2+1);
+		  
 		  }
 }
 void main()
-{ BTCHINALR *bt;
+{
+BTCHINALR *bt;
+
   int m,n,k,p;
+  
   bt=createbt();
+  
   printf("先序遍历的结果是：");
+  
   preorder(bt);
+  
   printf("\n");
+  
   printf("中序遍历的结果是：");
+  
   inorder(bt);
+  
   printf("\n");
+  
   printf("后序遍历的结果是：");
+  
   postorder(bt);
+  
   printf("\n");
+  
   m=sumnodes(bt);
+  
   printf("二叉树结点总数是：%d\n",m);
+  
   n=leaf(bt);
+  
   printf("二叉树叶子结点总数是：%d\n",n);
+  
   k=depth(bt);
+  
   printf("二叉树的深度是：%d\n",k);
+  
 }

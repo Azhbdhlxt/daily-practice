@@ -1,0 +1,157 @@
+#include <<stdio.>>
+#include <<stdlib.>>
+#define VEXTYPE int 
+#define ADJTYPE int 
+#define MAXLEN 40
+#define MAX 10000
+typedef struct
+{
+
+	VEXTYPE vexs[MAXLEN];
+  
+	ADJTYPE arcs[MAXLEN][MAXLEN];
+  
+	int vexnum,arcnum;
+  
+	int kind;
+  
+}MGRAPH;
+
+MGRAPH create_mgraph()
+{
+	int i,j,k,h;
+	
+	MGRAPH mg;
+  
+	mg.kind=3;
+  
+	printf("请输入顶点数和边数：");
+  
+	scanf("%d,%d",&i,&j);
+  
+	mg.vexnum=i;
+  
+	mg.arcnum=j;
+  
+	for(i=0;i<mg.vexnum;i++)
+		{
+    printf("第%d个顶点的信息 ：",i+1);
+    
+		scanf("%d",&mg.vexs[i]);
+    }
+	for(i=0;i<mg.vexnum;i++)
+  {
+		for(j=0;j<mg.vexnum;j++)
+    {
+			mg.arcs[i][j]=MAX;
+      
+	for(k=1;k<=mg.arcnum;k++)
+	{
+		printf("第%d条边的起始顶点编号和终止顶点编号：",k);
+		scanf("%d,%d",&i,&j);
+		while(i<1||i>mg.vexnum||j<1||j>mg.vexnum)
+		{
+			printf("  编号超出范围，重新输入：");
+			scanf("%d,%d",&i,&j);
+		}
+		printf("此边的权值:");
+    
+		scanf("%d",&h);
+	
+  mg.arcs[i-1][j-1]=h;
+  }
+  }
+	}
+  
+	return mg;
+}
+void main()
+{
+	MGRAPH mg;
+  
+	int cost[MAXLEN][MAXLEN];
+  
+	int path[MAXLEN],s[MAXLEN];
+  
+	int dist[MAXLEN];
+  
+	int i,j,n,v0,min,u;
+  
+	mg=create_mgraph();
+  
+	printf("请输入开始的顶点的编号：");
+  
+	scanf("%d",&v0);
+  
+	v0--;
+  
+	n=mg.vexnum;
+  
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+			cost[i][j]=mg.arcs[i][j];
+      
+		cost[i][i]=0;
+    
+	}
+	for(i=0;i<n;i++)
+	{
+		dist[i]=cost[v0][i];
+    
+		if(dist[i]<MAX&&dist[i]>0)
+    
+			path[i]=v0;
+	}
+	for(i=0;i<n;i++)
+		s[i]=0;
+    
+	s[v0]=1;
+  
+	for(i=0;i<n;i++)
+	{
+		min=MAX;
+    
+		u=v0;
+    
+		for(j=0;j<n;j++)
+			if(s[j]==0&&dist[j]<min)
+			{
+				min=dist[j];
+        
+				u=j;
+        
+			}
+			s[u]=1;
+      
+		for(j=0;j<n;j++)
+			if(s[j]==0&&dist[u]+cost[u][j]<dist[j])
+			{
+				dist[j]=dist[u]+cost[u][j];
+        
+				path[j]=u;
+        
+			}
+	}
+		for(i=0;i<n;i++)
+			if(s[i]==1)
+			{
+				u=i;
+        
+				while(u!=v0)
+        
+				{
+        printf("%d<-",u+1);
+        
+				u=path[u];
+        }
+				printf("%d",u+1);
+        
+				printf("d=%d\n",dist[i]);
+        
+			}
+			else
+      
+				printf("%d<-%d d=X\n",i+1,v0+1);
+				
+}

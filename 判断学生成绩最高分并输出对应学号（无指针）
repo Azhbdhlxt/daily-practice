@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <graphics.h>
+#include <time.h>
+#define N 40
+void FindMax(int score[], long num[], int n, int pMaxScore, long pMaxNum); 
+
+int main(int argc, char* argv[])
+{
+   int score[N], maxScore;
+   
+   int n, i;
+   
+   long maxNum, num[N];
+   
+   printf("输入学生人数：");
+   
+   scanf("%d", &n);
+   
+   printf("输入学生ID及成绩：\n");
+   
+   for(i = 0; i < n; i ++ )
+   {
+   	
+   	scanf("%ld%d", &num[i], &score[i]);
+   	
+   }
+   FindMax(score, num , n, maxScore, maxNum);
+   //按值调用 
+   printf("最高分 = %d, 学号 = %d\n", maxScore, maxNum);
+   
+   return 0;
+  
+}
+void FindMAx(int score[], long num[], int n , int pMaxScore, long pMaxNum)
+{
+	
+	int i;
+	
+	pMaxScore = score[0];
+	//假设当前为最高分
+	pMaxScore = num[0];
+	//记录当前最高分学生的学号
+	for(i =1; i <n; i ++ )
+	{
+		if(score[i] > pMaxScore)
+		{
+			
+			pMaxScore = score[i];
+			
+			pMaxNum = num[i];
+			
+		}
+	 } 
+	
+}

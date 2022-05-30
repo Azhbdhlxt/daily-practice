@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <conio.h>
+unsigned long getIP();
+
+void main()
+{
+
+	unsigned int sect1,sect2,sect3,sect4;
+  
+	unsigned long IP,netmask,netid,hostid;
+  
+	printf("请输入一个合理的IP地址：\n");
+  
+	IP=getIP(); 
+  /*完成模拟生成IP的值*/
+	printf("请输入一个合理的子网掩码：\n");
+  
+	netmask=getIP();	
+  /*完成模拟生成子网掩码变量netmask的值*/
+	printf("---------------------------\n");
+  
+	netid=IP&netmask;   
+  /*获取网络ID*/
+	hostid=IP-netid;    	
+  /*获取主机ID*/
+	printf("32位IP的值为：%lu\n",IP);
+  
+	printf("子网掩码的值: %lu\n",netmask);
+	/* 分离网络IP */
+	sect1=netid>>24;
+  
+	sect2=(netid>>16)-((long)sect1<<8);
+  
+	sect3=(netid>>8)-((long)sect1<<16)-((long)sect2<<8);
+  
+	sect4=0;                   
+  /*完成分离IP地址变量各IP段的值*/
+	printf("网络IP：%d.%d.%d.%d\n",sect1,sect2,sect3,sect4);
+  
+	printf("主机IP：%lu\n",hostid);
+  
+}
+
+unsigned long getIP()
+{
+
+	unsigned int ip;
+  
+	unsigned int sect1,sect2,sect3,sect4;
+  
+	scanf("%d.%d.%d.%d",&sect1,&sect2,&sect3,&sect4);
+  
+	ip=sect1;
+  
+	ip=ip<<8;
+  
+	ip+=sect2;
+  
+	ip=ip<<8;
+  
+	ip+=sect3;
+  
+	ip=ip<<8;
+  
+	ip+=sect4; 
+  
+	return ip;
+  
+}
+

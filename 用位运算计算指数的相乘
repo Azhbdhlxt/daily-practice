@@ -1,0 +1,56 @@
+#include <stdio.h>
+unsigned power2(unsigned int number,unsigned int pow);
+void showbit(unsigned int bit);
+int main()
+{
+	unsigned int number,pow,result;
+  
+	printf ("请输入number和pow的值：\n");
+  
+	scanf("%u%u",&number,&pow);
+  
+	printf("number=%u,pow=%u\n",number,pow);
+  
+	printf("----------------------------------\n");
+  
+	printf("计算%u乘以2的%u次方：\n",number,pow);
+  
+	result=power2(number,pow); 
+  /* 调用函数，计算number乘以2的pow次方*/
+	printf("计算结果为：result=%u: \n",result);
+  
+	printf("二进制值为：result=");
+  
+	showbit(result);
+  
+	putchar('\n');
+  
+}
+/* 计算number乘以2的pow次方 */
+unsigned power2(unsigned int number,unsigned int pow)
+{
+
+   number=number<<pow;
+   
+   return number;
+}
+/* 输出bit的二进制值 */
+void showbit(unsigned int bit)
+{
+
+	int i;
+  
+	unsigned mask=1<<31;
+  
+	for (i=1;i<=32;i++)
+   {
+   
+      putchar((bit & mask)? '1':'0');
+      
+      bit<<=1;
+      
+      if(i%8==0)
+      
+		  putchar(' ');
+   }
+}

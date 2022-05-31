@@ -1,0 +1,87 @@
+
+#include <stdio.h>
+#include <conio.h>
+void showbitvalue(unsigned int x);
+void main()
+{
+	unsigned int a,b,i,k=1;
+  
+	printf("请输入a和b的值：\n");
+  
+	scanf("%u%u",&a,&b);
+  
+	printf("输入的值分别为：\n");
+  
+	printf("a=%u, a二进制值为：a=",a);
+  
+	showbitvalue(a);
+  
+	printf("b=%u, b二进制值为：a=",b);
+  
+	showbitvalue(b);
+  
+	for(i=0;i<32;i++)
+	{
+		k=k<<2;
+    
+		k++;
+    
+	}
+	printf("--------------------------------\n");
+	printf("过滤值k的二进制值为：k=",k);
+  
+	showbitvalue(k);
+  
+	printf("--------------------------------\n");
+	printf("用表达式(a^k)将a的奇数位取反：a=");
+  
+	a=a^k;
+  
+	showbitvalue(a);
+  
+	printf("--------------------------------\n");
+	printf("用表达式(b^k)将b的奇数位取反：b=");
+  
+	b=b^k;
+  
+	showbitvalue(b);
+  
+	printf("--------------------------------\n");
+	printf("奇数位取反后，a，b的值分别为：\n");
+	printf("a=%u\tb=%u\n",a,b);
+  
+	/* 交换a,b的值 */
+  
+	a=a^b;
+  
+	b=b^a;
+  
+	a=a^b;
+  
+	printf("--------------------------------\n");
+  printf("交换后，a，b的值分别为：\n");
+	printf("a=%u,二进制为a=",a);
+  
+	showbitvalue(a);
+  
+	printf("b=%u,二进制为b=",b);
+  
+	showbitvalue(b);
+  
+}
+/* 输出x的二进制值 */
+void showbitvalue(unsigned int x)
+{
+	unsigned int c,temp=1;
+  
+	temp=temp<<15;
+  
+	for(c=1;c<=16;c++)
+	{
+		putchar(x&temp?'1':'0');
+    
+		x=x<<1;
+    
+	}
+	printf("\n");
+}

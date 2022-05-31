@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <math.h>
+#include <conio.h>
+void showbitvalue(unsigned int x);
+void main()
+{
+	unsigned int x,y=1,i;
+  
+	printf("请输入变量x的值：");
+  
+	scanf("%u",&x);
+  
+	printf("整型变量x的二进制为：");
+  
+	showbitvalue(x);     
+  /* 输出i的二进制值 */
+	for(i=0;i<32;i++)
+	{
+		y=y<<2;
+    
+		y++;
+    
+	}
+	printf("过滤器y的二进制值为：");
+  
+	showbitvalue(y);     
+  /* 输出i的二进制值 */
+	printf("执行位运算(x|y)后，x的二进制值为：");
+  
+	x=x|y;
+  
+	showbitvalue(x);   
+  /* 输出(i|j)的二进制值 */
+	printf("执行位运算(x|y)后，x的十进制值为：%u\n",x);
+  
+}
+/* 输出无符号整型变量x的二进制值 */
+void showbitvalue(unsigned int x)
+{
+	unsigned int c,temp=1;
+  
+	temp=temp<<31;
+  
+	for(c=1;c<=32;c++)
+	{
+		putchar(x&temp?'1':'0');
+    
+		x=x<<1;
+    
+	}
+	printf("\n");
+}

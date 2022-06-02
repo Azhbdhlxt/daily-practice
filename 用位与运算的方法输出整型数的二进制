@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <conio.h>
+void main()
+{
+	unsigned int x,c,temp=1;
+
+	temp=temp<<15;
+
+	printf("请输入1个正整数: ");
+
+	scanf("%u",&x);
+
+	do
+	{
+     printf("%u的二进制为：\n",x);
+
+	  for(c=1;c<=16;c++)
+	 {
+		  putchar(x&temp?'1':'0');
+      
+		  x=x<<1;
+	}
+	printf("\n--------------------\n");
+  
+	printf("请输入1个正整数: ");
+  
+	scanf("%u",&x);
+  
+	}while(x);
+  
+	printf("程序结束！\n");
+  
+}

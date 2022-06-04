@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+void main()
+{
+   int i1=32767,i2=-32767,i3=10,i4=-10,i;
+   
+   unsigned int u1=65535,u2=0,u3=10,u;
+   
+   printf("i1=%d,~i1=%d\n",i1,~i1);
+   
+   printf("i2=%d,~i2=%d\n",i2,~i2);
+   
+   printf("i3=%d,~i3=%d\n",i3,~i3);
+   
+   printf("i4=%d,~i4=%d\n",i4,~i4);
+   
+   printf("u1=%u,~u1=%u\n",u1,~u1);
+   
+   printf("u2=%u,~u2=%u\n",u2,~u2);
+   
+   printf("u3=%u,~u3=%u\n",u3,~u3);
+   
+}

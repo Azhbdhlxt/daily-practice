@@ -1,0 +1,48 @@
+#include <stdio.h>
+void main()
+{
+	int i;
+  
+	unsigned int u;
+  
+	printf("变量为有符号的整型数：\n");
+  
+	i=11<<3;
+  
+	printf("11<<3=%d\n",i);
+  
+	i=-11<<3;
+  
+	printf("-11<<3=%d\n",i);
+  
+	i=17<<15;
+  
+	printf("17<<15=%d\n",i);
+  
+	i=-17<<15;
+  
+	printf("-17<<15=%d\n",i);
+  
+	i=18<<15;
+  
+	printf("18<<15=%d\n",i);
+  
+	i=-18<<15;
+  
+	printf("-18<<15=%d\n",i);
+  
+	printf("变量为无符号的整型数：\n");
+  
+	u=23<<3;
+  
+	printf("23<<3=%u\n",u);
+  
+	u=17<<15;
+  
+	printf("17<<15=%u\n",u);
+  
+	u=18<<15;
+  
+	printf("18<<15=%u\n",u);
+  
+}

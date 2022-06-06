@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <ctype.h>
+void main()
+{
+	char ch;
+  
+	FILE *fp;
+  
+	fp=fopen("encrypt.txt","w");
+  
+	if(fp==NULL)
+  
+		printf("无法建立文件encrypt.txt\n");
+    
+	else
+  
+		printf("请输入字符：\n");
+    
+	ch=getc(stdin);
+  
+	while(ch!=EOF)
+	{
+		if(isalpha(ch))
+		{
+    
+			if((ch>='w' && ch<='z') || (ch>='W' && ch<='Z'))
+      
+				ch=ch-22;
+			else
+      
+				ch=ch+4;
+		}
+    
+		fputc(ch,fp);
+    
+		ch=getc(stdin);
+	}
+  
+	fclose(fp);
+}
+
+

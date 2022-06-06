@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void main()
+{
+    FILE *fp1,*fp2,*fp3;
+    
+    char temp1_1[10],temp1_2[20],temp2_1[10],temp2_2[10];
+    
+    if((fp1=fopen("file1.txt","r"))==NULL)  
+    /* 打开第1个文件 */
+    {
+        printf("文件file1.txt不存在!\n");
+        
+        exit(0);
+        
+    }
+    if((fp2=fopen("file2.txt","r"))==NULL) 
+    /* 打开第2个文件 */
+    {
+        printf("文件file2.txt不存在!\n");
+        
+        exit(0);
+    }
+    if((fp3=fopen("file3.txt","w"))==NULL) 
+    /* 打开第3个文件 */
+    {
+    
+        printf("无法建立文件file3.txt!\n");
+        
+        exit(0);
+        
+    }
+    while(!feof(fp1))
+    {
+        fscanf(fp1,"%s %s",temp1_1,temp1_2); 
+        /* 从第1个文件中读取数据 */
+        do
+        {
+            fscanf(fp2,"%s %s",temp2_1,temp2_2);  
+            /* 从第2个文件中读取数据 */
+            if(strcmp(temp1_1,temp2_1)==0)
+            
+                fprintf(fp3,"%s, %s, %s\n",temp1_1,temp1_2,temp2_2); 
+                
+       /* 将数据写入到第3个文件中 */
+       
+        }while(!feof(fp2)); 
+        
+        rewind(fp2); 
+    }
+    fclose(fp1);
+    fclose(fp2);
+    fclose(fp3);
+}

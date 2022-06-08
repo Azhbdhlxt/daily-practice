@@ -1,0 +1,82 @@
+#include <stdio.h>
+struct BankClient
+{ 
+	int count;
+  
+	char name[10];
+  
+	float money;
+  
+};
+void main()
+{
+    int record_len;
+    
+    struct BankClient client;
+    
+    FILE *fp;
+    
+    record_len=sizeof(struct BankClient);
+    
+    /*随机写文件*/
+    if((fp=fopen("credit.dat","r+"))==NULL)
+    
+        printf("帐户文件credit.dat不存在，请先建立该文件!\n");
+        
+    else
+    {
+        printf("请按顺序输入帐号、姓名和帐户资金\n");
+        
+        printf("当输入的帐号为0时，输入结束\n");
+        
+        printf("---------------------------------\n");
+        
+		printf("请输入帐号: ");
+        scanf("%d",&client.count);
+        
+        getchar();
+        
+        while(client.count!=0)
+        /* 当输入的帐号为0时，程序结束 */
+        {
+            printf("请输入户名: ");
+            
+            gets(client.name);
+            
+            printf("请输入帐户资金: ");
+            
+            scanf("%f",&client.money);
+            
+            getchar();
+            
+            fseek(fp,(client.count-1)*record_len,0);
+            
+            fwrite(&client,record_len,1,fp);
+            /*将内容写到文件的指定位置*/
+            printf("请输入帐号: ");
+            
+            scanf("%d",&client.count);
+            
+            getchar();
+        }
+        rewind(fp);
+        
+        printf("帐户信息如下：\n");
+        
+		printf("--------------------------------------\n");
+    
+        printf("%5s%8s%10s\n","帐号","姓名","金额");
+        
+        /* 显示文件中所有的记录 */
+		while(!feof(fp))
+        {
+            fread(&client,record_len,1,fp);
+            
+            if(client.count!=0)
+            
+                printf("%5d%10s%8.2f\n",client.count,client.name,client.money);
+        }
+        fclose(fp);
+    }
+}
+

@@ -1,0 +1,37 @@
+#include <stdio.h>
+struct BankClient
+{
+	int count;
+  
+	char name[10];
+  
+	float money;
+  
+};
+void main()
+{
+	int i,record_len;
+  
+    struct BankClient client={0,"",0.0};
+    
+    FILE *fp;
+    
+    record_len=sizeof(struct BankClient);
+    
+    if((fp=fopen("credit.dat","w"))==NULL)
+    
+		printf("File open error!\n");
+    
+    else
+    {
+		/*建立具有100条记录的随机文件*/
+        for(i=1;i<=100;i++)
+        
+        fwrite(&client,record_len,1,fp);
+        
+        fclose(fp);
+        
+		printf("文件credit.dat建立完毕。\n");
+    
+    }
+}

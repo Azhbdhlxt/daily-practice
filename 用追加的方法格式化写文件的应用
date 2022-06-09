@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+void main()
+{
+    FILE *fp;
+    
+    char w[10];
+    
+    int road1,road2;
+    
+    fp=fopen("vehicle.txt","a");
+    
+    if (fp==NULL)
+	{
+		printf("error\n");
+    
+        exit(0);
+        
+	}
+	else
+	{
+  
+		fprintf(fp,"----------------------------------\n");
+    
+		fprintf(fp,"车型\t\t路段1的车流量\t路段2的车流量\n");
+    
+		printf("请输入车型: ");
+    
+		gets(w);
+    
+        while(strlen(w)>0)
+        
+		{
+			printf("该车型在路段1的车流量:");
+      
+            scanf("%d",&road1);
+            
+            printf("该车型在路段2的车流量:");
+            
+            scanf("%d",&road2);
+            
+            fprintf(fp,"%-16s%d\t\t%d\t\t\n",w,road1,road2);
+            
+            getchar();
+            
+            printf("请输入车型: ");
+            
+            gets(w);
+            
+		}
+		fclose(fp);
+    
+	}
+}
+

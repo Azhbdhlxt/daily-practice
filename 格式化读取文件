@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+void main()
+{   FILE *fp;
+
+    char w[10];
+    
+    int road1,road2;
+    
+    fp=fopen("vehicle.txt","r");
+    
+    if (fp==NULL)
+       {
+          printf("File open error\n");
+       
+           exit(0);
+       }
+       else
+       {
+          printf("车型\t\t路口1\t路口2\t流量差\n");
+          
+          while(!feof(fp))
+            {
+                fscanf(fp,"%s %d %d",w,&road1,&road2);
+                
+                printf("%-16s%d\t%d\t%7d\n",w,road1,road2,road1-road2);
+                
+            }
+        }
+        
+    fclose(fp);
+    
+}

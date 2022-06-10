@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <string.h>
+void main()
+{
+    FILE *fp;
+    char w[20],name[30],*filename=name;
+    printf("请给出要生成的文件: ");
+    gets(name);
+    fp=fopen(filename,"w");
+    if (fp==NULL)
+        printf("File open error\n");
+    else
+	{
+        while (strlen(gets(w))>0)
+		{
+			fputs(w,fp);
+			fputs("\n",fp);
+		}
+		fclose(fp);
+	}
+}

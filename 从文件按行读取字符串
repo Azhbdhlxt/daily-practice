@@ -1,0 +1,37 @@
+#include <stdio.h>
+void main()
+{
+    FILE *fp;
+    
+    char w[81],name[30],*filename=name;
+    
+    int lines=0;
+    
+    printf("please imput filename: ");
+    
+    gets(name);
+    
+    fp=fopen(filename,"r");
+    
+    if (fp==NULL)
+    
+       printf("File open error\n");
+       
+    else
+	{
+  
+		while (fgets(w,80,fp)!=NULL)
+    
+		{
+			lines=lines+1;
+      
+			printf("%s",w);
+      
+		}
+    
+		printf("文件的总行数=%d\n",lines);
+    
+		fclose(fp);
+    
+	 }
+}

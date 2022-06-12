@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <conio.h>
+void main()
+{
+    FILE *fp;
+    char ch,name[30],*filename=name;
+    printf("please imput filename: ");
+    gets(name);
+    fp=fopen(filename,"r");
+    if (fp==NULL)
+		printf("error\n");
+    else
+		while((ch=fgetc(fp))!=EOF)
+			putchar(ch);
+		fclose(fp);
+}

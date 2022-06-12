@@ -1,0 +1,15 @@
+#include <stdio.h>
+void main()
+{
+    FILE *fp;
+    char ch,name[30],*filename=name;
+    printf("请给出要生成的文件名: ");
+    gets(name);
+    fp=fopen(filename,"w");
+    if (fp==NULL)
+       printf("error\n");
+    else
+       while ((ch=getchar())!=EOF)
+          fputc(ch,fp);
+    fclose(fp);
+}

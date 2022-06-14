@@ -1,0 +1,2640 @@
+EasyX基础入门——这一篇就够啦
+
+绿駬
+
+已于 2022-04-15 17:25:00 修改
+
+2915
+ 收藏 124
+文章标签： c++ c语言
+版权
+文章目录
+1.基本说明
+2.原理
+3.安装
+4.颜色
+5.EasyX设备
+6.窗口函数
+`initgraph`
+描述
+定义声明
+参数
+返回值
+示例代码
+`closegraph`
+`cleardevice`
+7.图形颜色及样式相关函数
+表格
+背景bk相关函数
+`setbkcolor`-设置背景颜色
+参数
+返回值
+备注
+示例
+`setbkmode` - 设置图案文字背景
+参数
+填充fill相关函数
+`setfillcolor` - 设置填充颜色
+参数
+返回值
+示例
+`setfillstyle` - 设置填充样式
+参数
+返回值
+示例
+line线相关函数
+`setlinecolor` - 设置画线颜色
+参数
+`setlinestyle`-设置画线样式
+参数
+返回值
+备注
+8.图形绘制函数
+1.圆-`circle`
+声明
+代码样例
+2.矩形 - `rectangle`
+声明
+代码样例
+3.椭圆 - `ellipse`
+声明
+代码样例
+4.圆角矩形 - `roundrectangle`
+声明
+代码样例
+9.文字绘制函数
+字体属性结构体:`logfont`
+`outtextxy` - 在指定位置输出字符串
+参数：
+注意：
+实例
+`settextcolor`
+`settextstyle`
+参数
+返回值
+示例
+10.图像处理函数
+`loadimage`
+声明:
+参数:
+备注:
+代码示例:
+`putimage`
+声明:
+备注:
+示例:
+11.消息处理相关函数
+`ExMessage` - 消息结构体
+定义声明:
+成员
+`flushmessage` - 清空缓冲区
+参数
+filte
+`getmessage` - 获取一个消息
+参数
+msg
+filter
+返回值
+备注
+`peekmessage` - 获取一个消息，并立即返回。
+参数
+msg
+filter
+removemsg
+返回值
+备注
+12.我们在使用时一些基本操作:
+画图：
+代码:画圆圈
+样例输出:
+文字
+代码:文字居中
+输出效果:
+图像:
+代码
+输出样例
+鼠标操作:
+老版:`graphics.h`
+新版
+键盘操作
+非EastX函数——键盘消息函数
+`getch()`/`_getch()`
+`getAsyncState()`
+音乐播放
+修改窗口标题、弹出对话框
+1.基本说明
+教学视频
+介绍网址
+
+EasyX是针对C++的图形库，可以帮助C/C++初学者快速上手图形和游戏编程。
+比如 ,可以基于EasyX图形库很快用几何图形画一个房子，或者一辆移动的小车，可以编写俄罗斯方块 、贪吃蛇、黑白棋等小游戏。
+许多人学编程是从C语言入门的，而目前的现状是
+学校值只教基础语法，一直在黑窗口练习，同学们学的很乏味。
+即使有的学校教图形编程，也是使用一些难度较高的， 比如Win32,OpenlGl门槛依然很高，初学者容易收到打击。
+开始引出我们的EasyX。
+2.原理
+基于Windows图形编程，将Windows下的复杂程序过程进行封装,将Windows下的编程过程隐藏，给用户提供一个简单熟悉的接口。用户对于图形库中函数的调用，最终都会由Windows的底层API实现。
+
+3.安装
+Easyx图形库支持Vs各种版本，下载解压后，直接执行安装程序即可。
+头文件graphics.h，注意现在更新后最好用easyx.h,某些宏定义前要加EW_!!!
+帮助文档EasyX 文档 - 基本说明
+下载EasyX Graphics Library for C++
+4.颜色
+三原色:红绿蓝
+
+
+
+用RGB宏合成颜色，实际上合成出来的颜色是一个十六进制的的整数。
+
+每个颜色部分的值都是0~255，数字越大颜色越浅
+
+RGB(5,5,5);
+1
+
+
+5.EasyX设备
+坐标默认的原点在窗口的左上角，X轴向右为正，Y 轴向下为正，度量单位是像素点。
+设备：简单来说，就是绘图表面。
+在EasyX中,设备分两种，一种是默认的绘图窗口另一种是IMAGE对象。通过SetWorkinglmage()函数可以设置当前用于绘图的设备。设置当前用于绘图的设备后,所有的绘图函数都会绘制在该设备上。(后面再去理解)
+
+
+6.窗口函数
+窗口函数用于窗口的一些操作
+
+closegraph();//关闭绘图窗口
+1
+cleardevice();//清空绘图设备
+1
+initgraph
+描述
+初始化绘图窗口。
+
+定义声明
+HWND initgraph(
+	int width,
+	int height,
+	int flag = NULL
+);
+1
+2
+3
+4
+5
+参数
+width：绘图窗口的宽度。
+
+height：绘图窗口的高度。
+
+flag：绘图窗口的样式，默认为 NULL。可为以下值：
+
+值	含义
+EW_DBLCLKS	在绘图窗口中支持鼠标双击事件。
+EW_NOCLOSE	禁用绘图窗口的关闭按钮。
+EW_NOMINIMIZE	禁用绘图窗口的最小化按钮。
+EW_SHOWCONSOLE	显示控制台窗口。
+ps:也可以不写前面的EW_
+
+​ console:控制台
+
+返回值
+返回新建绘图窗口的句柄。
+
+示例代码
+以下代码片段创建一个尺寸为 640x480 的绘图窗口：
+
+initgraph(640, 480);
+1
+以下代码片段创建一个尺寸为 640x480 的绘图窗口，同时显示控制台窗口：
+
+initgraph(640, 480, EW_SHOWCONSOLE);
+1
+以下代码片段创建一个尺寸为 640x480 的绘图窗口，同时显示控制台窗口，并禁用关闭按钮：
+
+initgraph(640, 480, EW_SHOWCONSOLE | EW_NOCLOSE);
+1
+closegraph
+这个函数用于关闭绘图窗口。
+
+void closegraph();
+1
+cleardevice
+这个函数使用当前背景色清空绘图设备。
+
+void cleardevice();
+1
+7.图形颜色及样式相关函数
+表格
+函数	描述
+setbkcolor	设置当前设备绘图背景色。
+setbkmode	设置当前设备图案填充和文字输出时的背景模式。
+setfillcolor	设置当前设备填充颜色。
+setfillstyle	设置当前设备填充样式。
+setlinecolor	设置当前设备画线颜色。
+setlinestyle	设置当前设备画线样式。
+背景bk相关函数
+setbkcolor-设置背景颜色
+这个函数用于设置当前设备绘图背景色。
+
+void setbkcolor(COLORREF color);
+1
+参数
+color
+
+指定要设置的背景颜色。
+
+返回值
+无
+
+备注
+在设置背景色之后，并不会改变现有背景色，而是只改变背景色的值，之后再执行绘图语句，例如 outtextxy，会使用新设置的背景色值。
+
+如果需要修改全部背景色，可以在设置背景色后执行 cleardevice() 函数。
+
+示例
+以下示例实现在蓝色背景下绘制红色的矩形：
+
+#include <graphics.h>
+#include <conio.h>
+
+int main()
+{
+	// 初始化绘图窗口
+	initgraph(640, 480);
+
+	// 设置背景色为蓝色
+	setbkcolor(BLUE);
+	// 用背景色清空屏幕
+	cleardevice();
+
+	// 设置绘图色为红色
+	setcolor(RED);
+	// 画矩形
+	rectangle(100, 100, 300, 300);
+
+	// 按任意键退出
+	_getch();
+	closegraph();
+    
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+setbkmode - 设置图案文字背景
+这个函数用于设置当前设备图案填充和文字输出时的背景模式。
+
+void setbkmode(int mode);
+1
+参数
+mode
+
+指定图案填充和文字输出时的背景模式，可以是以下值：
+
+值	描述
+OPAQUE	背景用当前背景色填充（默认）。
+TRANSPARENT	背景是透明的。
+填充fill相关函数
+setfillcolor - 设置填充颜色
+这个函数用于设置当前设备填充颜色。
+
+void setfillcolor(COLORREF color);
+1
+参数
+color
+
+填充颜色。
+
+返回值
+无
+
+示例
+设置蓝色填充：
+
+setfillcolor(BLUE);
+1
+setfillstyle - 设置填充样式
+这个函数用于设置当前设备填充样式。
+
+void setfillstyle(
+	FILLSTYLE* pstyle
+);
+void setfillstyle(
+	int style,
+	long hatch = NULL,
+	IMAGE* ppattern = NULL
+);
+void setfillstyle(
+	BYTE* ppattern8x8
+);
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+参数
+pstyle
+
+指向填充样式 FILLSTYLE 的指针。
+
+style
+
+指定填充样式。可以是以下宏或值：
+
+宏	值	含义
+BS_SOLID	0	固实填充。
+BS_NULL	1	不填充。
+BS_HATCHED	2	图案填充。
+BS_PATTERN	3	自定义图案填充。
+BS_DIBPATTERN	5	自定义图像填充。
+hatch
+
+指定填充图案，仅当 style 为 BS_HATCHED 时有效。填充图案的颜色由函数 setfillcolor 设置，背景区域使用背景色还是保持透明由函数 setbkmode 设置。hatch 参数可以是以下宏或值：
+
+宏	值	含义
+HS_HORIZONTAL	0	
+HS_VERTICAL	1	
+HS_FDIAGONAL	2	
+HS_BDIAGONAL	3	
+HS_CROSS	4	
+HS_DIAGCROSS	5	
+ppattern
+
+指定自定义填充图案或图像，仅当 style 为 BS_PATTERN 或 BS_DIBPATTERN 时有效。
+当 style 为 BS_PATTERN 时，ppattern 指向的 IMAGE 对象表示自定义填充图案，IMAGE 中的黑色（BLACK）对应背景区域，非黑色对应图案区域。图案区域的颜色由函数 [settextcolor](…/5 文字输出相关函数/settextcolor.htm) 设置。
+当 style 为 BS_DIBPATTERN 时，ppattern 指向的 IMAGE 对象表示自定义填充图像，以该图像为填充单元实施填充。
+
+ppattern8x8
+
+指定自定义填充图案，效果同 BS_PATTERN，该重载以 BYTE[8] 数组定义 8 x 8 区域的填充图案。数组中，每个元素表示一行的样式，BYTE 类型有 8 位，按位从高到低表示从左到右每个点的状态，由此组成 8 x 8 的填充单元，将填充单元平铺实现填充。对应的二进制位为 0 表示背景区域，为 1 表示图案区域。
+
+返回值
+无
+
+示例
+以下代码片段设置固实填充：
+
+setfillstyle(BS_SOLID);
+1
+以下代码片段设置填充图案为斜线填充：
+
+setfillstyle(BS_HATCHED, HS_BDIAGONAL);
+1
+以下代码片段设置自定义图像填充（由 res\bk.jpg 指定填充图像）：
+
+IMAGE img;
+loadimage(&img, _T("res\\bk.jpg"));
+setfillstyle(BS_DIBPATTERN, NULL, &img);
+1
+2
+3
+以下完整代码设置自定义的填充图案（小矩形填充），并使用该图案填充一个三角形：
+
+#include <conio.h>
+#include <graphics.h>
+
+int main()
+{
+	// 创建绘图窗口
+	initgraph(640, 480);
+
+	// 定义填充单元
+	IMAGE img(10, 8);
+
+	// 绘制填充单元
+	SetWorkingImage(&img);	// 设置绘图目标为 img 对象
+	setbkcolor(BLACK);		// 黑色区域为背景色
+	cleardevice();
+	setfillcolor(WHITE);	// 白色区域为自定义图案
+	solidrectangle(1, 1, 8, 5);
+	SetWorkingImage(NULL);	// 恢复绘图目标为默认绘图窗口
+
+	// 设置填充样式为自定义填充图案
+	setfillstyle(BS_PATTERN, NULL, &img);
+
+	// 设置自定义图案的填充颜色
+	settextcolor(GREEN);
+
+	// 绘制无边框填充三角形
+	POINT pts[] = { {50, 50}, {50, 200}, {300, 50} };
+	solidpolygon(pts, 3);
+
+	// 按任意键退出
+	_getch();
+	closegraph();
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+以下代码片段设置自定义的填充图案（圆形图案填充）：
+
+setfillstyle((BYTE*)"\x3e\x41\x80\x80\x80\x80\x80\x41");
+1
+以下代码片段设置自定义的填充图案（细斜线夹粗斜线图案填充）：
+
+setfillstyle((BYTE*)"\x5a\x2d\x96\x4b\xa5\xd2\x69\xb4");
+1
+line线相关函数
+setlinecolor - 设置画线颜色
+这个函数用于设置当前设备画线颜色。
+
+void setlinecolor(COLORREF color);
+1
+参数
+color
+
+将要设置的画线颜色。
+
+setlinestyle-设置画线样式
+这个函数用于设置当前设备画线样式。
+
+void setlinestyle(
+	const LINESTYLE* pstyle
+);
+void setlinestyle(
+	int style,
+	int thickness = 1,
+	const DWORD *puserstyle = NULL,
+	DWORD userstylecount = 0
+);
+1
+2
+3
+4
+5
+6
+7
+8
+9
+参数
+pstyle
+
+指向画线样式 LINESTYLE 的指针。
+
+style
+
+画线样式（详见备注）。
+
+thickness
+
+线的宽度，以像素为单位。
+
+puserstyle
+
+用户自定义样式数组，仅当线型为 PS_USERSTYLE 时该参数有效。
+数组第一个元素指定画线的长度，第二个元素指定空白的长度，第三个元素指定画线的长度，第四个元素指定空白的长度，以此类推。
+
+userstylecount
+
+用户自定义样式数组的元素数量。
+
+返回值
+无
+
+备注
+参数 style 指定了画线样式，该样式由直线样式、端点样式、连接样式三类组成。可以是其中一类或多类的组合。同一类型中只能指定一个样式。
+
+直线样式可以是以下值：
+
+值	含义
+PS_SOLID	线形为实线。
+PS_DASH	线形为：------------
+PS_DOT	线形为：············
+PS_DASHDOT	线形为：-·-·-·-·-·-·
+PS_DASHDOTDOT	线形为：-··-··-··-··
+PS_NULL	线形为不可见。
+PS_USERSTYLE	线形样式为用户自定义，由参数 puserstyle 和 userstylecount 指定。
+宏 PS_STYLE_MASK 是直线样式的掩码，可以通过该宏从画线样式中分离出直线样式。
+
+端点样式可以是以下值：
+
+值	含义
+PS_ENDCAP_ROUND	端点为圆形。
+PS_ENDCAP_SQUARE	端点为方形。
+PS_ENDCAP_FLAT	端点为平坦。
+宏 PS_ENDCAP_MASK 是端点样式的掩码，可以通过该宏从画线样式中分离出端点样式。
+
+连接样式可以是以下值：
+
+值	含义
+PS_JOIN_BEVEL	连接处为斜面。
+PS_JOIN_MITER	连接处为斜接。
+PS_JOIN_ROUND	连接处为圆弧。
+宏 PS_JOIN_MASK 是连接样式的掩码，可以通过该宏从画线样式中分离出连接样式。
+
+掩码宏表示对应样式组所占用的所有位。例如，对于一个已经混合了多种样式的 style 变量，如果希望仅将直线样式修改为点划线，可以这么做：
+
+style = (style & ~PS_STYLE_MASK) | PS_DASHDOT;
+1
+8.图形绘制函数
+
+
+1.圆-circle
+声明
+void circle( int x, int y, int radius);//画无填充的圆。
+void fillcircle( int x, int y, int radius);//有边框的填充圆
+void solidcircle( int x, int y, int radius);//画无边框的填充圆。
+void clearcircle( int x, int y, int radius);//该函数使用背景色清空圆形区域。
+1
+2
+3
+4
+代码样例
+#include<stdio.h>
+//1.包含图形库头文件，就能使用提供给我的函数
+#include<graphics.h>
+
+int main()
+{
+	//2.创建一个窗口,确定窗口大小,show_console(显现控制台)
+	initgraph(640, 480, SHOWCONSOLE);
+	//设置背景颜色，one，two两步才能设置背景颜色，位置不能颠倒
+	setbkcolor(RGB(255,128,192));//one,设置背景颜色
+	cleardevice();//two,清屏，初始化,清楚原来背景的黑色
+
+	//3.画粑粑，圆
+	setlinestyle(PS_SOLID, 3);//线的类型为实线，粗细为3个像素
+	setfillcolor(BLUE);//填充颜色为蓝色
+	setlinecolor(YELLOW);//线的颜色为黄色
+
+	circle(50, 50, 50);
+	fillcircle(50, 150, 50);
+	solidcircle(50, 250, 50);
+	/*
+	setbkcolor(GREEN);//重新设个背景色，更显著
+	clearcircle(100, 150, 50);
+	clearcircle(100, 250, 50);
+	*/
+	
+	getchar();
+	//2.1关闭窗口
+	closegraph();
+
+	return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+输出样例:
+
+
+//在结尾后面添加清除函数
+	setbkcolor(GREEN);//重新设个背景色，更显著
+	clearcircle(100, 150, 50);
+	clearcircle(100, 250, 50);
+1
+2
+3
+4
+
+2.矩形 - rectangle
+声明
+void rectangle( int left, int top, int right, int bottom);//画无填充的矩形。
+void fillrectangle( int left, int top, int right, int bottom);
+void solidrectangle( int left, int top, int right, int bottom);
+void clearrectangle( int left, int top, int right, int bottom);
+1
+2
+3
+4
+left:矩形左部 x 坐标。
+top:矩形顶部 y 坐标。
+right:矩形右部 x 坐标。
+bottom:矩形底部 y 坐标。
+代码样例
+#include<stdio.h>
+//1.包含图形库头文件，就能使用提供给我的函数
+#include<graphics.h>
+
+int main()
+{
+	//2.创建一个窗口,确定窗口大小,show_console(显现控制台)
+	initgraph(640, 640, SHOWCONSOLE);
+	//设置背景颜色，one，two两步才能设置背景颜色，位置不能颠倒
+	setbkcolor(RGB(255,128,192));//one,设置背景颜色
+	cleardevice();//two,清屏，初始化,清楚原来背景的黑色
+
+	setfillcolor(YELLOW);//设置填充颜色-黄色
+	setfillstyle(BS_HATCHED, HS_DIAGCROSS);//设置填充模式，自定义填充，交叉网
+	setlinecolor(RED);//设置线的颜色-红色
+	setlinestyle(PS_SOLID, 2);//设置线的模式为虚线，粗细为两个像素
+
+	rectangle(200, 100, 400, 200);
+	fillrectangle(200, 250, 400, 350);
+	solidrectangle(200, 400, 400, 500);
+
+	/*setbkcolor(GREEN);//重新设个背景色，更显著
+	clearrectangle(300, 250,500, 350);
+	clearrectangle(300, 400,500, 500);*/
+	
+
+	getchar();
+	//2.1关闭窗口
+	closegraph();
+
+	return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+效果:
+
+
+加了clear效果:
+
+
+3.椭圆 - ellipse
+声明
+void ellipse( int left, int top, int right, int bottom);
+void fillellipse( int left, int top, int right, int bottom);
+void solidellipse( int left, int top, int right, int bottom);
+void clearellipse( int left, int top, int right, int bottom);
+1
+2
+3
+4
+left:椭圆外切矩形的左上角 x 坐标。
+top:椭圆外切矩形的左上角 y 坐标。
+right:椭圆外切矩形的右下角 x 坐标。
+bottom:椭圆外切矩形的右下角 y 坐标。
+代码样例
+#include<stdio.h>
+//1.包含图形库头文件，就能使用提供给我的函数
+#include<graphics.h>
+
+int main()
+{
+	//2.创建一个窗口,确定窗口大小,show_console(显现控制台)
+	initgraph(640, 640, SHOWCONSOLE);
+	//设置背景颜色，one，two两步才能设置背景颜色，位置不能颠倒
+	setbkcolor(RGB(255,128,192));//one,设置背景颜色
+	cleardevice();//two,清屏，初始化,清楚原来背景的黑色
+
+	setfillcolor(GREEN);//设置填充颜色
+	setfillstyle(BS_HATCHED, HS_DIAGCROSS);//设置填充模式，自定义填充，交叉网
+	setlinecolor(RED);//设置线的颜色
+	setlinestyle(PS_SOLID, 2);//设置线的模式为虚线，粗细为两个像素
+
+	ellipse(200, 100, 400, 200);
+	fillellipse(200, 250, 400, 350);
+	solidellipse(200, 400, 400, 500);
+
+	//setbkcolor(WHITE);//重新设个背景色，更显著
+	//clearellipse(300, 250,500, 350);
+	//clearellipse(300, 400,500, 500);
+	//
+
+	getchar();
+	//2.1关闭窗口
+	closegraph();
+
+	return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+
+clear：
+
+
+4.圆角矩形 - roundrectangle
+声明
+void roundrect(int left,int top,int right,int bottom,int ellipsewidth,int ellipseheight);
+void fillroundrect(int left,int top,int right,int bottom,int ellipsewidth,int ellipseheight);
+void solidroundrect(int left,int top,int right,int bottom,int ellipsewidth,int ellipseheight);
+void clearroundrect(int left,int top,int right,int bottom,int ellipsewidth,int ellipseheight);
+1
+2
+3
+4
+left：圆角矩形左部 x 坐标。
+top：圆角矩形顶部 y 坐标。
+right：圆角矩形右部 x 坐标。
+bottom：圆角矩形底部 y 坐标。
+ellipsewidth：构成圆角矩形的圆角的椭圆的宽度。
+ellipseheight：构成圆角矩形的圆角的椭圆的高度。
+代码样例
+#include<stdio.h>
+//1.包含图形库头文件，就能使用提供给我的函数
+#include<graphics.h>
+
+int main()
+{
+	//2.创建一个窗口,确定窗口大小,show_console(显现控制台)
+	initgraph(640, 640, SHOWCONSOLE);
+	//设置背景颜色，one，two两步才能设置背景颜色，位置不能颠倒
+	setbkcolor(WHITE);//one,设置背景颜色
+	cleardevice();//two,清屏，初始化,清楚原来背景的黑色
+
+	setfillcolor(GREEN);//设置填充颜色
+	setfillstyle(BS_HATCHED, HS_DIAGCROSS);//设置填充模式，自定义填充，交叉网
+	setlinecolor(RED);//设置线的颜色
+	setlinestyle(PS_SOLID, 3);//设置线的模式为虚线，粗细为两个像素
+
+	roundrect(200, 100, 400, 200,50,50);
+	rectangle(200, 150, 400, 250);
+
+	getchar();
+	//2.1关闭窗口
+	closegraph();
+
+	return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+
+
+图形绘制函数用于在窗口上绘制各种图形。
+绘图函数从填充样式分类可以分为无填充，有边框填充，无边框三种。
+设置填充颜色:setfillcolor(颜色)
+设置线条颜色:setlinecolor(颜色)
+设置先调样式:setlinestyle(线条,粗细)
+以画圆为例
+    setlinestyle(PS_SOLID, 5);//设置线条样式
+	setlinecolor(YELLOW);//设置线条颜色
+	setfillcolor(BLUE);//设置填充颜色	
+	circle(50, 50, 50);//有边框
+	fillcircle(50, 150, 50);//有填充
+	solidcircle(50, 250, 50);//实心，(无边框)
+1
+2
+3
+4
+5
+6
+7
+#include<stdio.h>
+//1.包含图形库头文件，就能使用提供给我的函数
+#include<graphics.h>
+
+int main()
+{
+	//2.创建一个窗口,确定窗口大小,show_console(显现控制台)
+	initgraph(640,480,SHOWCONSOLE);
+	//设置背景颜色，one，two两步才能设置背景颜色，位置不能颠倒
+	setbkcolor(GREEN);//one
+	cleardevice();//清屏，初始化,清楚原来背景的黑色，two
+	
+
+
+	//3.画粑粑，圆
+	setlinestyle(PS_SOLID, 5);
+	setfillcolor(BLUE);
+	setlinecolor(YELLOW);
+	circle(50, 50, 50);
+	fillcircle(50, 150, 50);
+	solidcircle(50, 250, 50);
+
+	int num = 0;
+	printf("请输入一个数字:>");
+	scanf("%d", &num);
+	printf("%d", num);
+
+	getchar();
+	//2.1关闭窗口
+	closegraph();
+	
+	return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+区别:
+
+
+
+
+
+9.文字绘制函数
+字体属性结构体:logfont
+这个结构体定义了字体的属性。
+
+struct LOGFONT {
+	LONG lfHeight;//指定高度(逻辑单位)
+	LONG lfWidth //指定字符的平均宽度(逻辑单位)。如果为0，则比例自适应
+	LONG lfEscapement;//字符串的书写角度，单位0.1度，默认为0
+	LONG lfOrientation;//每个字符的书写角度，单位 0.1 度，默认为 0。
+	LONG lfWeight;//字符的笔画粗细，范围 0~1000，0 表示默认粗细，使用数字或下表中定义的宏均可。PS:宏太多就不写了
+	BYTE lfItalic;//指定字体是否是斜体。
+	BYTE lfUnderline;//指定字体是否有下划线
+	BYTE lfStrikeOut;//指定字体是否有删除线
+	BYTE lfCharSet;//指定字符集
+	BYTE lfOutPrecision;//指定文字的输出精度
+	BYTE lfClipPrecision;//指定文字的剪辑精度。
+	BYTE lfQuality;//指定文字的输出质量。
+	BYTE lfPitchAndFamily;//指定以常规方式描述字体的字体系列。字体系列描述大致的字体外观。字体系列用于在所需精确字体不可用时指定字体。
+	TCHAR lfFaceName[LF_FACESIZE];//字体名称，名称不得超过 31 个字符。如果是空字符串，系统将使用第一个满足其它属性的字体。
+
+};
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+字符集的概念
+
+outtextxy - 在指定位置输出字符串
+void outtextxy(int x,int y,LPCTSTR str);
+1
+void outtextxy( int x, int y, TCHAR c );
+1
+参数：
+x 字符串输出时头字母的 x 轴的坐标值。
+y 字符串输出时头字母的 y 轴的坐标值。
+str 待输出的字符串的指针。
+c 待输出的字符。
+注意：
+该函数不会改变当前位置。
+
+字符串常见的编码有两种：MBCS 和 Unicode。VC6 新建的项目默认为 MBCS 编码，VC2008 及高版本的 VC 默认为 Unicode 编码。LPCTSTR 可以同时适应两种编码。为了适应两种编码，请使用 TCHAR 字符串及相关函数。
+
+默认情况下，输出字符串的背景会用当前背景色填充。使用函数 setbkmode 可以设置文字的背景部分保持透明或使用背景色填充。
+
+实例
+// 输出字符串（MBCS 字符集）
+char s[] = "Hello World";
+outtextxy(10, 20, s);
+// 输出字符串（Unicode 字符集）
+wchar_t s[] = L"Hello World";
+outtextxy(10, 20, s);
+// 输出字符串（项目字符集）
+TCHAR s[] = _T("Hello World");
+outtextxy(10, 20, s);
+// 输出字符（MBCS 字符集）
+char c = 'A';
+outtextxy(10, 40, c);
+// 输出字符（项目字符集）
+TCHAR c = _T('A');
+outtextxy(10, 40, c);
+// 输出数值，先将数字格式化输出为字符串（MBCS 字符集）
+char s[5];
+sprintf(s, "%d", 1024);
+outtextxy(10, 60, s);
+// 输出数值 1024，先将数字格式化输出为字符串（项目字符集）
+TCHAR s[5];
+_stprintf(s, _T("%d"), 1024);		// 高版本 VC 推荐使用 _stprintf_s 函数
+outtextxy(10, 60, s);
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+settextcolor
+void settextcolor(COLORREF color);
+1
+settextstyle
+这个函数用于设置当前字体样式。
+
+void settextstyle(
+	int nHeight,//指定高度（逻辑单位）。
+	int nWidth,//指定宽度
+	LPCTSTR lpszFace//字体名称
+);
+void settextstyle(
+	int nHeight,
+	int nWidth,
+	LPCTSTR lpszFace,
+	int nEscapement,//字符串倾斜角度
+	int nOrientation,//每个字符倾斜角度
+	int nWeight,//字符的笔画粗细，范围 0~1000。0 表示默认粗细。
+	bool bItalic,//是否斜体
+	bool bUnderline,//是否下划线
+	bool bStrikeOut//是否删除线
+);
+void settextstyle(
+	int nHeight,
+	int nWidth,
+	LPCTSTR lpszFace,
+	int nEscapement,
+	int nOrientation,
+	int nWeight,
+	bool bItalic,
+	bool bUnderline,
+	bool bStrikeOut,
+	BYTE fbCharSet,//指定字符集
+	BYTE fbOutPrecision,//输出精度
+	BYTE fbClipPrecision,//剪辑精度
+	BYTE fbQuality,//输出质量
+	BYTE fbPitchAndFamily//指定以常规方式描述字体的字体系列
+);
+void settextstyle(const LOGFONT *font);
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+参数
+nHeight：指定高度（逻辑单位）。
+nWidth：字符的平均宽度（逻辑单位）。如果为 0，则比例自适应。
+lpszFace：字体名称。
+nEscapement：字符串的书写角度，单位 0.1 度。
+nOrientation：每个字符的书写角度，单位 0.1 度。
+nWeight：字符的笔画粗细，范围 0~1000。0 表示默认粗细。详见 LOGFONT 结构体。
+bItalic：是否斜体。
+bUnderline：是否有下划线。
+bStrikeOut：是否有删除线。
+fbCharSet：指定字符集。详见 LOGFONT 结构体。
+fbOutPrecision：指定文字的输出精度。详见 LOGFONT 结构体。
+fbClipPrecision：指定文字的剪辑精度。详见 LOGFONT 结构体。
+fbQuality：指定文字的输出质量。详见 LOGFONT 结构体。
+fbPitchAndFamily：指定以常规方式描述字体的字体系列。详见 LOGFONT 结构体。
+font：指向 LOGFONT 结构体的指针。
+返回值
+无
+
+示例
+// 设置当前字体为高 16 像素的“Consolas”。(VC6 / VC2008 / VC2010 / VC2012)
+settextstyle(16, 0, _T("Consolas"));
+outtextxy(0, 0, _T("测试"));
+// 设置输出效果为抗锯齿 (VC6 / VC2008 / VC2010 / VC2012)
+LOGFONT f;
+gettextstyle(&f);						// 获取当前字体设置
+f.lfHeight = 48;						// 设置字体高度为 48
+_tcscpy(f.lfFaceName, _T("黑体"));		// 设置字体为“黑体”(高版本 VC 推荐使用 _tcscpy_s 函数)
+f.lfQuality = ANTIALIASED_QUALITY;		// 设置输出效果为抗锯齿  
+settextstyle(&f);						// 设置字体样式
+outtextxy(0, 50, _T("抗锯齿效果"));
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+10.图像处理函数
+loadimage
+这个函数用于从文件中读取图片
+
+声明:
+// 从图片文件获取图像(bmp/gif/jpg/png/tif/emf/wmf/ico)
+void loadimage(
+	IMAGE* pDstImg,			// 保存图像的 IMAGE 对象指针
+	LPCTSTR pImgFile,		// 图片文件名
+	int nWidth = 0,			// 图片的拉伸宽度
+	int nHeight = 0,		// 图片的拉伸高度
+	bool bResize = false	// 是否调整 IMAGE 的大小以适应图片
+);
+// 从资源文件获取图像(bmp/gif/jpg/png/tif/emf/wmf/ico)
+void loadimage(
+	IMAGE* pDstImg,			// 保存图像的 IMAGE 对象指针
+	LPCTSTR pResType,		// 资源类型
+	LPCTSTR pResName,		// 资源名称
+	int nWidth = 0,			// 图片的拉伸宽度
+	int nHeight = 0,		// 图片的拉伸高度
+	bool bResize = false	// 是否调整 IMAGE 的大小以适应图片
+);
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+参数:
+pDstImg 保存图像的 IMAGE 对象指针。如果为 NULL，表示图片将读取至绘图窗口。
+pImgFile 图片文件名。支持 bmp / gif / jpg / png / tif / emf / wmf / ico 格式的图片。gif 格式的图片仅加载第一帧；gif 与 png 均不支持透明。
+nWidth 图片的拉伸宽度。加载图片后，会拉伸至该宽度。如果为 0，表示使用原图的宽度。
+nHeight 图片的拉伸高度。加载图片后，会拉伸至该高度。如果为 0，表示使用原图的高度。
+bResize 是否调整 IMAGE 的大小以适应图片。
+pResType 图片资源类型。
+pResName 图片资源名称。
+备注:
+如果创建 IMAGE 对象的时候没有指定宽高，可以通过 Resize 函数设置。
+
+对于没有设置宽高的 IMAGE 对象，执行 loadimage 会将其宽高设置为和读取的图片一样的尺寸。
+
+代码示例:
+以下完整示例实现了加载图片“D:\test.jpg”至绘图窗口：
+
+#include <graphics.h>
+#include <conio.h>
+
+// 主函数
+int main()
+{
+	// 绘图窗口初始化
+	initgraph(640, 480);
+
+	// 读取图片至绘图窗口
+	loadimage(NULL, _T("D:\\test.jpg"));
+
+	// 按任意键退出
+	_getch();
+	closegraph();
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+以下代码片段实现了加载图片“D:\test.jpg”至绘图窗口（MBCS 及 Unicode 自适应）：
+
+loadimage(NULL, _T("D:\\test.jpg"));
+1
+以下代码片段实现了加载“IMAGE”分类下的图像资源“Player”至 img 对象，并在屏幕的指定位置显示：
+
+IMAGE img;
+loadimage(&img, _T("IMAGE"), _T("Player"));
+putimage(100, 100, &img);	// 在另一个位置再次显示背景
+1
+2
+3
+以下代码片段实现了加载“IMAGE”分类下的图像资源 IDR_PLAYER 至 img 对象，并在屏幕的指定位置显示：
+
+IMAGE img;
+loadimage(&img, _T("IMAGE"), MAKEINTRESOURCE(IDB_PLAYER));
+putimage(100, 100, &img);	// 在另一个地方再次显示背景
+1
+2
+3
+putimage
+这个函数的几个重载用于在当前设备上绘制指定图像。
+
+声明:
+// 绘制图像
+void putimage(
+	int dstX,				// 绘制位置的 x 坐标
+	int dstY,				// 绘制位置的 y 坐标
+	IMAGE *pSrcImg,			// 要绘制的 IMAGE 对象指针
+	DWORD dwRop = SRCCOPY	// 三元光栅操作码
+);
+// 绘制图像(指定宽高和起始位置)
+void putimage(
+	int dstX,				// 绘制位置的 x 坐标
+	int dstY,				// 绘制位置的 y 坐标
+	int dstWidth,			// 绘制的宽度
+	int dstHeight,			// 绘制的高度
+	IMAGE *pSrcImg,			// 要绘制的 IMAGE 对象指针
+	int srcX,				// 绘制内容在 IMAGE 对象中的左上角 x 坐标
+	int srcY,				// 绘制内容在 IMAGE 对象中的左上角 y 坐标
+	DWORD dwRop = SRCCOPY	// 三元光栅操作码
+);
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+备注:
+三元光栅操作码（即位操作模式），支持全部的 256 种三元光栅操作码，常用的几种如下：
+
+值	含义
+DSTINVERT	目标图像 = NOT 目标图像
+MERGECOPY	目标图像 = 源图像 AND 当前填充颜色
+MERGEPAINT	目标图像 = 目标图像 OR (NOT 源图像)
+NOTSRCCOPY	目标图像 = NOT 源图像
+NOTSRCERASE	目标图像 = NOT (目标图像 OR 源图像)
+PATCOPY	目标图像 = 当前填充颜色
+PATINVERT	目标图像 = 目标图像 XOR 当前填充颜色
+PATPAINT	目标图像 = 目标图像 OR ((NOT 源图像) OR 当前填充颜色)
+SRCAND	目标图像 = 目标图像 AND 源图像
+SRCCOPY	目标图像 = 源图像
+SRCERASE	目标图像 = (NOT 目标图像) AND 源图像
+SRCINVERT	目标图像 = 目标图像 XOR 源图像
+SRCPAINT	目标图像 = 目标图像 OR 源图像
+注：
+
+AND / OR / NOT / XOR 为布尔运算。
+"当前填充颜色"是指通过 setfillcolor 设置的用于当前填充的颜色。
+查看全部的三元光栅操作码请参考这里：三元光栅操作码。
+示例:
+以下代码片段将屏幕 (0,0) 起始的 100x100 的图像拷贝至 (200,200) 位置：
+
+IMAGE img;
+getimage(&img, 0, 0, 100, 100);
+putimage(200, 200, &img);
+1
+2
+3
+11.消息处理相关函数
+消息缓冲区可以缓冲 63 个未处理的消息。每次获取消息时，将从消息缓冲区取出一个最早发生的消息。消息缓冲区满了之后，不再接收任何消息。
+
+ExMessage - 消息结构体
+定义声明:
+这个结构体用于保存鼠标消息，定义如下：
+
+struct ExMessage
+{
+	USHORT message;					// 消息标识
+	union
+	{
+		// 鼠标消息的数据
+		struct
+		{
+			bool ctrl		:1;		// Ctrl 键是否按下
+			bool shift		:1;		// Shift 键是否按下
+			bool lbutton	:1;		// 鼠标左键是否按下
+			bool mbutton	:1;		// 鼠标中键是否按下
+			bool rbutton	:1;		// 鼠标右键
+			short x;				// 鼠标的 x 坐标
+			short y;				// 鼠标的 y 坐标
+			short wheel;			// 鼠标滚轮滚动值，为 120 的倍数
+		};
+
+		// 按键消息的数据
+		struct
+		{
+			BYTE vkcode;			// 按键的虚拟键码
+			BYTE scancode;			// 按键的扫描码（依赖于 OEM）
+			bool extended	:1;		// 按键是否是扩展键
+			bool prevdown	:1;		// 按键的前一个状态是否按下
+		};
+
+		// 字符消息的数据
+		TCHAR ch;
+
+		// 窗口消息的数据
+		struct
+		{
+			WPARAM wParam;
+			LPARAM lParam;
+		};
+	};
+};
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+成员
+message
+
+消息标识，可为以下值：
+
+消息标识	消息类别	描述
+WM_MOUSEMOVE	EM_MOUSE	鼠标移动消息。
+WM_MOUSEWHEEL	鼠标滚轮拨动消息。	
+WM_LBUTTONDOWN	左键按下消息。	
+WM_LBUTTONUP	左键弹起消息。	
+WM_LBUTTONDBLCLK	左键双击消息。	
+WM_MBUTTONDOWN	中键按下消息。	
+WM_MBUTTONUP	中键弹起消息。	
+WM_MBUTTONDBLCLK	中键双击消息。	
+WM_RBUTTONDOWN	右键按下消息。	
+WM_RBUTTONUP	右键弹起消息。	
+WM_RBUTTONDBLCLK	右键双击消息。	
+WM_KEYDOWN	EM_KEY	按键按下消息
+WM_KEYUP	按键弹起消息。	
+WM_CHAR	EM_CHAR	字符消息。
+WM_ACTIVATE	EM_WINDOW	窗口激活状态改变消息。
+WM_MOVE	窗口移动消息。	
+WM_SIZE	窗口大小改变消息。	
+ctrl：Ctrl 键是否按下。仅当消息所属类别为 EM_MOUSE 时有效。
+
+shift：Shift 键是否按下。仅当消息所属类别为 EM_MOUSE 时有效。
+
+lbutton：鼠标左键是否按下。仅当消息所属类别为 EM_MOUSE 时有效。
+
+mbutton：鼠标中键是否按下。仅当消息所属类别为 EM_MOUSE 时有效。
+
+rbutton：鼠标右键是否按下。仅当消息所属类别为 EM_MOUSE 时有效。
+
+x：当前鼠标 x 坐标（物理坐标）。仅当消息所属类别为 EM_MOUSE 时有效。
+
+y：当前鼠标 y 坐标（物理坐标）。仅当消息所属类别为 EM_MOUSE 时有效。
+
+wheel：鼠标滚轮滚动值，为 120 的倍数。仅当消息所属类别为 EM_MOUSE 时有效。
+
+——————————————————————————————————————————————————
+
+vkcode：按键的虚拟键码。仅当消息所属类别为 EM_KEY 时有效。
+
+在微软网站上列出有所有的虚拟键码：https://docs.microsoft.com/windows/win32/inputdev/virtual-key-codes
+
+scancode：按键的扫描码（依赖于 OEM）。仅当消息所属类别为 EM_KEY 时有效。
+
+extended：按键是否为扩展按键，例如功能键和数字键盘。仅当消息所属类别为 EM_KEY 时有效。
+
+prevdown：按键的前一个状态是否为按下。仅当消息所属类别为 EM_KEY 时有效。
+
+ch：收到的字符。仅当消息所属类别为 EM_CHAR 时有效。
+
+wParam：消息对应的 wParam 参数。仅当消息所属类别为 EM_WINDOW 时有效。
+
+lParam：消息对应的 lParam 参数。仅当消息所属类别为 EM_WINDOW 时有效。
+
+flushmessage - 清空缓冲区
+这个函数用于清空消息缓冲区。
+
+void flushmessage(BYTE filter = -1);
+1
+参数
+filte
+指定要清空的消息范围，默认 -1 清空所有类别的消息。可以用以下值或值的组合清空指定类别的消息：
+
+标志	描述
+EM_MOUSE	鼠标消息。
+EM_KEY	按键消息。
+EM_CHAR	字符消息。
+EM_WINDOW	窗口消息。
+getmessage - 获取一个消息
+这个函数用于获取一个消息。如果当前消息队列中没有，就一直等待。
+
+ExMessage getmessage(BYTE filter = -1);
+void getmessage(ExMessage *msg, BYTE filter = -1);
+1
+2
+参数
+msg
+指向消息结构体 ExMessage 的指针，用来保存获取到的消息。
+
+filter
+指定要获取的消息范围，默认 -1 获取所有类别的消息。可以用以下值或值的组合获取指定类别的消息：
+
+标志	描述
+EM_MOUSE	鼠标消息。
+EM_KEY	按键消息。
+EM_CHAR	字符消息。
+EM_WINDOW	窗口消息。
+返回值
+重载 1 返回保存有消息 ExMessage 的结构体。
+
+重载 2 没有返回值。
+
+备注
+默认情况下，连续的鼠标单击会被识别为一系列的单击事件。如果希望两个连续的鼠标单击识别为双击事件，请在创建绘图窗口的时候指定标志位 EW_DBLCLKS。
+
+peekmessage - 获取一个消息，并立即返回。
+这个函数用于获取一个消息，并立即返回。
+
+bool peekmessage(ExMessage *msg, BYTE filter = -1, bool removemsg = true);
+1
+参数
+msg
+指向消息结构体 ExMessage 的指针，用来保存获取到的消息。
+
+filter
+指定要获取的消息范围，默认 -1 获取所有类别的消息。可以用以下值或值的组合获取指定类别的消息：
+
+标志	描述
+EM_MOUSE	鼠标消息。
+EM_KEY	按键消息。
+EM_CHAR	字符消息。
+EM_WINDOW	窗口消息。
+removemsg
+在 peekmessage 处理完消息后，是否将其从消息队列中移除。
+
+返回值
+如果获取到了消息，返回 true。
+
+如果当前没有消息，返回 flase。
+
+备注
+默认情况下，连续的鼠标单击会被识别为一系列的单击事件。如果希望两个连续的鼠标单击识别为双击事件，请在创建绘图窗口的时候指定标志位 EW_DBLCLKS。
+
+12.我们在使用时一些基本操作:
+画图：
+代码:画圆圈
+#include<stdio.h>
+#include<graphics.h>//图形库头文件
+int main()
+{
+    //创建一个窗口，确定窗口大小
+    //initgraph(1024,1024，SHOWCONSOLE | NOCLOSE | NOMINIMIZE);
+    initgraph(3000, 3000,SHOWCONSOLE);
+    //下面这两步不能换位置，不能缺少
+    setbkcolor(WHITE);//设置背景颜色
+    cleardevice();//清屏
+
+    setfillcolor(RED);//设置填充颜色
+    setlinecolor(BLUE);//设置线条颜色
+    setlinestyle(PS_SOLID, 5);//设置线条样式:实心，粗度5像素
+    //画圆
+    circle(500, 50, 50);
+    fillcircle(500,200,100);
+    solidcircle(500,500,200);
+    //关闭窗口
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+样例输出:
+
+
+文字
+	//1，在字符串前面加上大写的 L
+	outtextxy(50, 50, L"我是一个小青蛙");
+	//2，用TEXT()把字符串包起来，_T()
+	outtextxy(50, 150, _T("我是一个小青蛙"));
+	//3,不需要添加任何代码，进项目->属性->配置属性->常规->字符集->改为多字节字符集推荐使用介个
+	outtextxy(50, 150, "我是一个小青蛙");
+1
+2
+3
+4
+5
+6
+方法3:
+
+
+
+代码:文字居中
+
+
+#include<stdio.h>
+#include<graphics.h>
+int main()
+{
+    initgraph(1024, 1024, SHOWCONSOLE);
+    setbkcolor(YELLOW);
+    cleardevice();
+    //先画一个粉色的圆角矩形
+    setlinecolor(BLACK);//黑框
+    setfillcolor(RGB(255, 210, 223));//粉底
+    fillroundrect(100, 100, 400, 300, 50, 50);
+    //设置文字样式
+    settextstyle(25, 0, "楷体");//设置字体高度，宽度，字型
+    setbkmode(TRANSPARENT);//设置字体背景透明，默认不透明
+    settextcolor(BLUE);//蓝字
+
+    //文字居中
+    char arr[] = "我是一直小青蛙~";
+    int x_buff = (300 - textwidth(arr)) / 2;//textwidth求字符串所占像素长度
+    int y_buff = (200 - textheight(arr)) / 2;//textheight求字符串所占像素高度
+
+    outtextxy(100 + x_buff, 100 + y_buff, arr);
+
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+输出效果:
+
+
+图像:
+在使用图像之前，需要定义一个变量(对象),然后把图片加载进变量才能进行使用。
+平时定义变量都是使用的基础数据类型
+在使用图像的时候需要使用EasyX提供给我们的类型:IMAGE,如:IMAGE img;
+l**oadimage:**从文件中读取图像
+pDstImg, //保存图像的IMAGE对象指针 &img
+pImgFile, //图片文件名
+nWidth = 0, //图片的拉伸宽度(长度)，如果为 0，表示使用原图的宽度
+nHeight = 0, //图片的拉伸高度，如果为 0，表示使用原图的高度
+bResize = false, //是否调整IMAGE的大小以适应图片
+**putimage:**在当前设备上绘制指定图像
+destX //绘制位置的x坐标
+destY //绘制位置的y坐标
+pSrcImg //要绘制的IMAGE对象指针 &img
+dwRop = SRCCOPY //三元光栅操作码
+代码
+#include<stdio.h>
+#include<graphics.h>
+int main()
+{
+    initgraph(1000, 1000, SHOWCONSOLE);
+    setbkcolor(YELLOW);
+    cleardevice();
+
+    //输出图片
+    IMAGE img1;//定义一个(变量)对象
+    IMAGE img2;//定义一个(变量)对象
+    loadimage(&img1, "C:\\Users\\LENOVO\\Desktop\\wallpaper\\xx.png",768,432);//绝对路径
+    loadimage(&img2, "./oo.png",512,288);//相对路径: ./表示当前文件夹下，../表示答盎前文件夹的上一级目录
+    putimage(0, 0, &img1);
+    putimage(500, 500, &img2);
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+输出样例
+
+
+鼠标操作:
+老版:graphics.h
+鼠标消息需要使用MOUSEMSG类型，比如:MOUSEMSG msg;
+
+然后使用MoustHit()判断是否有鼠标消息(左键，右键， 中间，移动)
+
+如果有鼠标消息就可以进行接受鼠标消息了:msg = GetMouseMsg();
+
+鼠标消息主要成员:
+
+uMsg //当前鼠标消息
+x //当前鼠标x坐标
+y //当前鼠标y坐标
+uMsg可用来判断当前鼠标消息是什么消息
+
+主要的两个消息:
+
+WM_LBUTTONDOWN 左键消息
+WM_RBUTTONDOWN 右键消息
+#include<stdio.h>
+#include<graphics.h>
+void button(int x, int y, int w, int h, const char* text);
+int main()
+{
+    initgraph(1000, 1000, SHOWCONSOLE);//展示控制台
+    button(50, 50, 150, 50, "按钮");
+    MOUSEMSG msg;
+    while (1)
+    {
+        if (MouseHit())//有鼠标操作消息返回真
+        {
+            msg = GetMouseMsg();//获取鼠标信息
+            switch (msg.uMsg)//消息分发
+            {
+            case WM_LBUTTONDOWN:
+                if (msg.x >= 50 && msg.x <= 50 + 150 && msg.y >= 50 && msg.y <= 50 + 150)
+                {
+                    printf("哼哼,被左键点击了\n");
+                }
+                break;
+            case WM_RBUTTONDOWN:
+                if (msg.x >= 50 && msg.x <= 50 + 150 && msg.y >= 50 && msg.y <= 50 + 150)
+                {
+                    printf("哈哈哈,被右键点击了\n");
+                }
+                break;
+            default:
+                break;
+            }
+        }
+
+    }
+    getchar();
+    closegraph();
+    return 0;
+}
+void button(int x, int y, int w, int h, const char* text)
+{
+    setlinecolor(WHITE);//设置框边颜色
+    setbkmode(TRANSPARENT);//设置字体背景透明
+    setfillcolor(RGB(255, 0, 192));//设置填充颜色
+    fillroundrect(x, y, x + w, y + h, 10, 10);//画一个按钮框
+
+    char text_[50] = { 0 };
+    strcpy(text_, text);
+    settextcolor(RED);
+    settextstyle(40, 0, "黑体");
+    int tx = x + (w - textwidth(text_)) / 2;
+    int ty = y + (h - textheight(text_)) / 2;
+    outtextxy(tx, ty, text_);
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+
+
+新版
+#include<stdio.h>
+#include<easyx.h>
+
+void button(int x, int y, int w, int h,const char* text)
+{
+
+    setbkmode(TRANSPARENT);//设置字体背景透明
+    setfillcolor(BROWN);//设置填充颜色
+    fillroundrect(x,y,x+w,y+h,10,10);//设置按钮
+    
+    char text_[50] = {0};//按钮内容物
+    strcpy(text_,text);//复制
+    settextstyle(40,0,"黑体");
+    int tx = x + (w-textwidth(text_))/2;
+    int ty = y + (h-textheight(text_))/2;    
+    outtextxy(tx,ty,text_);
+}
+
+int main ()
+{
+    initgraph(1000,1000,EW_SHOWCONSOLE);
+    button(50,50,150,50,"按钮");
+      
+    ExMessage msg;
+    while(1)
+    {
+        if(peekmessage(&msg, EM_MOUSE))//有鼠标消息返回真，没有返回假
+        {
+            switch(msg.message)
+            {
+                case WM_LBUTTONDOWN:
+                    if(msg.x>=50&&msg.x<=50+150&&msg.y>=50&&msg.y<=50+150)
+                    {
+                        printf("哼哼,被左键点击了\n");
+                    }
+                    break;
+                case WM_RBUTTONDOWN:
+                    if(msg.x>=50&&msg.x<=50+150&&msg.y>=50&&msg.y<=50+150)
+                    {
+                        printf("哈哈哈,被右键点击了\n");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+
+
+键盘操作
+非EastX函数——键盘消息函数
+用于获取键盘信息的函数有两个
+
+getch(); 需要头文件conio.h
+
+GetAsyncKeyState(键值); 需要头文件windows.h(EasyX已经帮我们包含了)
+
+**getch();**需要使用返回值来判断
+
+与非ASCII表字符的按键比较，需要使用虚拟按键值，如:
+上：72
+下：80
+左：75
+右：77
+如果是与字母比较直接写字母，如'A'
+**GetAsyncKeyState(键值);**需要传入一个键值(Async:非同步;异步)，如:
+
+上：VK_UP
+下：VK_DOWN
+左：VK_LEFT
+右：VK_RIGHT
+
+
+getch()/_getch()
+#include<stdio.h>
+#include<graphics.h>
+#include<conio.h>//使用_getch();//其实就是getch();
+int main()
+{
+    initgraph(1000, 1000, SHOWCONSOLE);
+    setbkcolor(WHITE);
+    cleardevice();
+    IMAGE img;//定义一个(变量)对象
+    loadimage(&img, "./oo.png", 512, 288);//找一个图片便于观看闪烁
+    putimage(0, 0, &img);
+    
+    
+
+    int x = 0,y = 0;//设置小球坐标
+    while(1)//不断循环操作
+    {
+        setfillcolor(BROWN);//展示一个棕色小球
+        fillcircle( x, y, 20);
+        
+        char key = _getch();
+        switch(key)
+        {
+            case 72://上键的虚拟值
+            case 'W':
+            case 'w':
+                y -= 5;
+                printf("上\n");
+                break;
+            case 80://下键的虚拟值
+            case 'S':
+            case 's':
+                y += 5;
+                printf("下\n");
+                break;
+            case 75://左键的虚拟值
+            case 'A':
+            case 'a':
+                x -= 5;
+                printf("左\n");
+                break;
+            case 77://右键的虚拟值
+            case 'D':
+            case 'd':
+                x += 5;
+                printf("右\n");
+                break;
+        }
+    }
+
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+效果展示:
+
+
+
+为什么会有尾巴呢?
+
+因为我们没有清楚前一帧背景:所以我们要在循环while中第一行加上cleardevice()
+
+效果:
+
+
+
+出现问题:背景永远消失
+
+解决方案:将原背景的渲染代码放进while()循环里面:
+
+#include<stdio.h>
+#include<graphics.h>
+#include<conio.h>//使用_getch();//其实就是getch();
+int main()
+{
+    initgraph(1000, 1000, SHOWCONSOLE);
+    int x = 0,y = 0;//设置小球坐标
+    while(1)//不断循环操作
+    {
+        cleardevice();
+        //背景区
+        setbkcolor(WHITE);
+        IMAGE img;//定义一个(变量)对象
+        loadimage(&img, "./oo.png", 512, 288);//找一个图片便于观看闪烁
+        putimage(0, 0, &img);
+        
+        //小球区
+        setfillcolor(BROWN);//展示一个棕色小球
+        fillcircle( x, y, 20);
+        
+        char key = _getch();
+        switch(key)
+        {
+            case 72://上键的虚拟值
+            case 'W':
+            case 'w':
+                y -= 5;
+                printf("上\n");
+                break;
+            case 80://下键的虚拟值
+            case 'S':
+            case 's':
+                y += 5;
+                printf("下\n");
+                break;
+            case 75://左键的虚拟值
+            case 'A':
+            case 'a':
+                x -= 5;
+                printf("左\n");
+                break;
+            case 77://右键的虚拟值
+            case 'D':
+            case 'd':
+                x += 5;
+                printf("右\n");
+                break;
+        }
+    }
+
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+
+
+出现问题:背景闪烁不定
+
+解决方案:
+
+在设备上不断进行绘图操作时，会产生闪屏现象，此时眼睛会受不了，针对这个现象，我们需要用到以下两个函数来处理：
+
+BeginBatchDraw();开始批量绘图
+---------中间放绘图代码---------------
+EndBatchDraw(); 结束批量绘制
+原理:先在缓存区画，画完再显示
+
+#include<stdio.h>
+#include<graphics.h>
+#include<conio.h>//使用_getch();//其实就是getch();
+int main()
+{
+    initgraph(1000, 1000, SHOWCONSOLE);
+    int x = 0,y = 0;//设置小球坐标
+    while(1)//不断循环操作
+    {
+        
+        //双缓冲绘图，需要放在绘图代码之前和之后
+        BeginBatchDraw();//开始批量绘图
+        //背景区
+        setbkcolor(WHITE);
+        cleardevice();
+        IMAGE img;//定义一个(变量)对象
+        loadimage(&img, "./oo.png", 512, 288);//找一个图片便于观看闪烁
+        putimage(0, 0, &img);
+        
+        //小球区
+        setfillcolor(BROWN);//展示一个棕色小球
+        fillcircle( x, y, 20);
+        FlushBatchDraw();//清空批量绘图
+        char key = _getch();//阻塞函数，不输入一直在这里等
+        switch(key)
+        {
+            case 72://上键的虚拟值
+            case 'W':
+            case 'w':
+                y -= 5;
+                printf("上\n");
+                break;
+            case 80://下键的虚拟值
+            case 'S':
+            case 's':
+                y += 5;
+                printf("下\n");
+                break;
+            case 75://左键的虚拟值
+            case 'A':
+            case 'a':
+                x -= 5;
+                printf("左\n");
+                break;
+            case 77://右键的虚拟值
+            case 'D':
+            case 'd':
+                x += 5;
+                printf("右\n");
+                break;
+        }
+    }
+	
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+效果:
+
+
+
+虽然略带延迟，不过解决了闪烁问题。
+
+getAsyncState()
+#include<stdio.h>
+#include<graphics.h>
+#include<conio.h>//使用_getch();//其实就是getch();
+int main()
+{
+    initgraph(1000, 1000, SHOWCONSOLE);
+    int x = 0,y = 0;//设置小球坐标
+    while(1)//不断循环操作
+    {
+        
+        //双缓冲绘图，需要放在绘图代码之前和之后
+        BeginBatchDraw();//开始批量绘图
+        //背景区
+        setbkcolor(WHITE);
+        cleardevice();
+        IMAGE img;//定义一个(变量)对象
+        loadimage(&img, "./oo.png", 512, 288);//找一个图片便于观看闪烁
+        putimage(0, 0, &img);
+        //小球区
+        setfillcolor(BROWN);//展示一个棕色小球
+        fillcircle( x, y, 20);
+        FlushBatchDraw();//清空批量绘图
+        
+        if(GetAsyncKeyState(VK_UP))//上键
+        {
+            y-=10;
+        }
+        if(GetAsyncKeyState(VK_DOWN))//下键
+        {
+            y+=10;
+        }
+        if(GetAsyncKeyState(VK_LEFT))//左键
+        {
+            x-=10;
+        }
+        if(GetAsyncKeyState(VK_RIGHT))//右键
+        {
+            x+=10;
+        }
+        
+    }
+	
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+
+
+相比getch()可以进行斜上斜下，比叫顺滑.
+
+音乐播放
+
+
+#include<stdio.h>
+#include<graphics.h>
+#include<mmsystem.h>//包含多媒体设备接口头文件,一定放在graphics.h下面
+#pragma comment(lib,"winmm.lib")//加载静态库
+
+void BGM()//播放音乐
+{
+    //打开音乐，播放音乐  alias取别名 repeat重复播放
+    mcisendstring("open ./让我做你的眼睛.mp3 alias BGM",0,0,0);//向多媒体设备接口(mci)发送(send)一个字符串(string)
+    mcisendstring("play BGM repeat",0,0,0);
+    if(0)
+    {
+        mcisendstring("close BGM ",0,0,0);
+    }
+}
+int main ()
+{
+    initgraph(600,600,SHOWCONSOLE);
+    BGM();
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+open指令打开需要播放的音乐，alias后面制定了前面文件路径的别名，以后想要操作这个文件直接使用这个别名就行了，后面的三个参数平时，就记着写作NULL，0，NULL即可。
+
+第二条语句play指令后面接上面定义的别名，repeat表示歌曲循环播放。如果想要在音乐播放时停止播放，有以下代码.
+
+修改窗口标题、弹出对话框
+
+
+#include<stdio.h>
+#include<graphics.h>
+#include<mmsystem.h>//包含多媒体设备接口头文件,一定放在graphics.h下面
+#pragma comment(lib,"winmm.lib")//加载静态库
+
+void change()
+{
+    //获取窗口句柄
+    HWND hnd = GetHWnd();
+    //设置窗口标题
+    SetWindowText(hnd,"很高兴认识你");
+    //弹出窗口，提示用户操作
+    int is_ok = MessageBox(hnd,"我是消息框","要不要关闭我",MB_OKCANCEL);
+    if(is_ok == IDOK)
+    {
+        printf("你点击了OK\n");
+    }
+    else if(is_ok == IDCANCEL)
+    {
+        printf("你点击了cancel\n");
+    }
+}
+int main ()
+{
+    initgraph(600,600,SHOWCONSOLE);
+    change();
+    getchar();
+    closegraph();
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+
+
+
+绿駬
+关注
+
+————————————————
+版权声明：本文为CSDN博主「绿駬」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_61777209/article/details/124185685

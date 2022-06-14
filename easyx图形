@@ -1,0 +1,323 @@
+在此之前我们用C/C++编程面对的都是黑框框，可能会感觉很无聊。现在用easyX库可以很快的画一个房子、车子、人物等等。当然也可以基于easyX图形库来做一些我们平时玩过的游戏，比如贪吃蛇、俄罗斯方块、坦克大战、天天酷跑等。
+
+目录
+
+一、easyX图形库基本介绍
+
+1、easyX的原理
+
+2、easyX的安装
+
+3、easyX的颜色
+
+ 4、easyX的坐标
+
+二、easyX图形库的使用
+
+1、窗口函数 initgraph(int width,int height,int flag = NULL);
+
+ 2、图形绘制
+
+1.画圆 circle(int x,int y,int r);
+
+2.画矩形 rectangle(int x1,int y1,int x2,int y2); 
+
+3.画线条  line(int x1,int y1,int x2,int y2) ; 
+
+4.设置填充颜色  setfillcolor(颜色); 
+
+5.设置线条颜色   setlinecolor(颜色)；
+
+6.设置线条样式  setlinestyle(样式, 线宽);
+
+7.设置背景颜色  setbkcolor(颜色);
+
+8.设置背景模式      setbkmode(模式); 
+
+2、文字绘制 
+
+1.绘制文字 outtextxy(int x,int y,文字);
+
+2.设置字体颜色     settextcolor(颜色);
+
+3.设置字体样式   settextstyle(int Height,int Width, 样式);
+
+ 3.获取文本的宽度     textwidth(文本);
+
+4. 获取文本的高度     textheight(文本);
+
+3、图像处理函数
+
+1.图像类型变量 IMAGE
+
+2.加载图像 loadimage(&img, 文件路径,宽, 高,是否调整 IMAGE大小来适应图片);
+
+3.在设备上绘制图片 putimage(X,Y,&img)
+
+4、鼠标消息函数
+
+1. 鼠标消息判断 MouseHit()
+
+2.鼠标消息MOUSEMSG类型及其成员
+
+ 3.鼠标消息接收  msg = GetMouseMsg();
+
+ 5、键盘消息函数
+
+1.判断有无按键按下 kbhit()
+
+ 2.getch() 用返回值来判断
+
+3. GetAsyncKeyState(键值)   需要传入键值
+
+ 6、批量绘图  BeginBatchDraw(); 
+
+ 7、修改窗口标题 | 弹出对话框
+
+1.获取窗口句柄 GetWnd()
+
+2.修改窗口标题 SetWindowText(aaa,"标题")
+
+3.设置对话框  MessageBox(aaa,"消息","对话框标题",MB_OKCANCEL)
+
+8、播放音乐
+
+1.需要的头文件和静态库
+
+2.音乐播放函数 mciSendString
+
+一、easyX图形库基本介绍
+1、easyX的原理
+基于Windows图形编程，将Windows下的复杂程序过程进行封装，仅给用户提供一个简单熟悉的接口。用户对于图形库中函数的调用，最终都会由Windows底层的API实现。
+
+2、easyX的安装
+注意：easyX图形库仅支持VS的各个版本
+
+在浏览器搜索easyX官网，进入官网后，点击下载
+
+
+
+下载完成之后，点击下一步，easyX会自动检测你电脑上的VS版本，点击安装即可。EasyX文档里面有EasyX库使用的介绍可以安装看一看。
+
+
+
+这就安装成功了，在写程序时，包含 graphics.h 头文件就可以使用图形库中的函数了。
+
+3、easyX的颜色
+easyX中的颜色实际上都是用三原色 红绿蓝 表示出来的。
+
+RGB(红色部分，绿色部分，蓝色部分);       (每个颜色的值都是从0 - 255)
+
+我们可以打开电脑上的画图软件，查看RGB的值对应合成的颜色。比如下图RGB(0,0,0);即黑色。
+
+
+
+ 4、easyX的坐标
+坐标原点默认为窗口的左上角，X轴向右为正，Y轴向下为正，度量单位为像素点。
+
+
+
+二、easyX图形库的使用
+1、窗口函数 initgraph(int width,int height,int flag = NULL);
+    initgraph(int width, int height, int flag = NULL);    //用于初始化绘图窗口（创建窗口）
+
+   width 即窗口的宽       height 即窗口的高   flag 为窗口的样式默认为NULL  
+
+   第三个参数可以用来设置控制台和绘图窗口的最小化和关闭按钮
+
+    EW_SHOWCONSOLE       //显示控制台
+
+    EW_NOCLOSE           //没有关闭按钮   （可以用来恶搞 ^_^）
+
+    EW_NOMINIMIZE       //没有最小化按钮   
+
+  closegraph();    //关闭绘图窗口
+
+  cleardevice();  //清空绘图设备
+
+ 2、图形绘制
+绘图函数从填充样式可分为无填充、有边框填充、无边框填充。
+
+
+
+其他形状类似，只需要改掉circle即可
+
+
+
+1.画圆 circle(int x,int y,int r);
+ 画圆    circle(int X,int Y,int R);       //以（x，y）为圆心，R为半径画圆 另外两种样式相同
+
+2.画矩形 rectangle(int x1,int y1,int x2,int y2); 
+rectangle(int x1,int y1,int x2,int y2);   //以（x1，y1）为左上顶点（x2,y2）为右下顶点画矩形
+
+3.画线条  line(int x1,int y1,int x2,int y2) ; 
+line(int x1,int y1,int x2,int y2) ;    //连接（x1，y1）和（x2，y2）的一条线段
+
+4.设置填充颜色  setfillcolor(颜色); 
+setfillcolor(颜色);   //设置填充颜色，如setfillcolor(RED);  
+
+5.设置线条颜色   setlinecolor(颜色)；
+setlinecolor(颜色)； //设置线条颜色，如setlinecolor(YELLOW);
+
+6.设置线条样式  setlinestyle(样式, 线宽);
+setlinestyle(样式, 线宽);  //设置线条样式，setlinestyle(PS_SOLID, 3);   宽为3的实线
+
+7.设置背景颜色  setbkcolor(颜色);
+setbkcolor(颜色);     //设置背景颜色，如    setbkcolor(WHITE);
+
+8.设置背景模式      setbkmode(模式); 
+  setbkmode(模式);   //设置背景模式，一般使用设置为透明    setbkmode(TRANSPARENT);
+
+2、文字绘制 
+1.绘制文字 outtextxy(int x,int y,文字);
+outtextxy(int x,int y,LPCTSTR str); //在（x,y）输出文字str，如   outtextxy(10,10,"你好");
+
+ 注意：使用字符串时出现错误 
+
+解决方法： 1.在字符串前加上L 。 即outtextxy(10,10,L"你好");
+
+             2.进入项目 -> 属性 ->配置属性 ->常规 -> 字符集 -> 改为多字节字符集
+
+
+
+2.设置字体颜色     settextcolor(颜色);
+    settextcolor(颜色);   //设置字体颜色，如    settextcolor(BLUE); 
+
+3.设置字体样式   settextstyle(int Height,int Width, 样式);
+ settextstyle(int Height,int Width, 样式);  //设置字体类型，如settextstyle(30,0,"行楷");
+
+ Height : 即字体的平均高度    Width : 即字体的平均宽度（为0表示自适应）
+
+ 3.获取文本的宽度     textwidth(文本);
+    textwidth(文本);   //获取文字宽度，如    textwidth("哈哈哈哈");
+
+4. 获取文本的高度     textheight(文本);
+    textheight(文本);  //获取文本高度，如     textheight("嘿嘿");
+
+3、图像处理函数
+1.图像类型变量 IMAGE
+在使用图像之前，需要先定义一个变量（对象），然后把图片加载进变量能使用。
+
+定义一个图像变量，如 IMAGE img;
+
+2.加载图像 loadimage(&img, 文件路径,宽, 高,是否调整 IMAGE大小来适应图片);
+ loadimage(IMAGE *pDstImg,文件路径, 宽,高, bool  bResize = false);  
+
+相对路径： ./ 表示当前文件夹下  ../ 表示上一级文件夹  如：./123.jpg
+
+绝对路径：C:\\Users\\ASUS\\Desktop\\eaxyX项目\\eaxyX\\eaxyX\\123.jpg
+
+如，loadimage(&img,"./123.jpg"); 
+
+3.在设备上绘制图片 putimage(X,Y,&img)
+ putimage(X,Y,&img,三元光栅操作码) 
+
+ //把（x,y）作为左上角顶点放置图片,最后一个参数一般用不到
+
+如，putimage(0,0,&img);  //放在左上角 
+
+4、鼠标消息函数
+1. 鼠标消息判断 MouseHit()
+用MouseHit()来判断是否有鼠标消息（左键，右键，中间，移动） 
+
+2.鼠标消息MOUSEMSG类型及其成员
+如  MOUSEMSG    msg;   
+
+鼠标消息（msg）的成员
+
+uMsg,    //当前鼠标消息
+
+x,           //当前鼠标x坐标
+
+y,           //当前鼠标y坐标
+
+使用鼠标消息的成员 如，msg.uMsg,msg.x,msg.y 
+
+ uMsg是用来判断鼠标消息的类型
+
+主要的两个消息 WM_LBUTTONDOWN 鼠标左击消息
+
+                          WM_RBUTTONDOWN 鼠标右击消息
+
+ 3.鼠标消息接收  msg = GetMouseMsg();
+如果有鼠标消息，就可以进行接收鼠标消息了  msg = GetMouseMsg();
+
+ 5、键盘消息函数
+获取键盘消息的函数有两个
+
+getch();             //需要头文件conio.h
+
+GetAsyncKeyState(键值);  //需要头文件windows.h,但EasyX包含了windows.h，无需添加
+
+1.判断有无按键按下 kbhit()
+kbhit();     //当有按键按下函数返回1   在头文件conio.h中
+
+ 2.getch() 用返回值来判断
+（1）与非ASCII表字符的按键比较，需要使用虚拟键值  上：72  下：80  左：75  右：77
+
+（2）如果是字母比较直接写字母，如'a'(区分大小写)
+
+3. GetAsyncKeyState(键值)   需要传入键值
+需要传入一个键值，如果按下返回真 
+
+上： VK_UP        下：VK_DOWN      左：VK_LEFT     右：VK_RIGHT
+
+ 6、批量绘图  BeginBatchDraw(); 
+在设备上不断进行绘图时，会产生闪屏现象。针对这种现象，可以使用批量绘图来解决。
+
+BeginBatchDraw();        //开始双缓冲绘图，放在绘图之前
+
+ EndBatchDraw();          //结束双缓冲绘图，放在绘图之后 
+
+或者  FlushBatchDraw();         
+
+ 7、修改窗口标题 | 弹出对话框
+GetHWnd();    //获取窗口句柄，之后可以操作窗口
+
+1.获取窗口句柄 GetWnd()
+ HWND aaa;    //用HWND类型变量获取窗口句柄
+
+aaa = GetWnd(); 
+
+2.修改窗口标题 SetWindowText(aaa,"标题")
+ SetWindowText(aaa,"标题")   //如  SetWindowText(aaa,"爱乐之城");
+
+如果aaa在这里写NULL，就可以在窗口和对话框之间进行切换，现在必须先点对话框
+
+3.设置对话框  MessageBox(aaa,"消息","对话框标题",MB_OKCANCEL)
+MB_OKCANCEL 表示对话框的按钮，可进入定义看其他的，如MB_YESNO  
+
+MessageBox函数返回int型值 点击确定返回IDOK ，点击取消返回IDCANCEL 
+
+如果是MB_YESNO，点击YES返回 IDYESE，点击NO返回IDNO
+
+//举个例子 
+HWND abc = GetHWnd();   //获取窗口句柄
+SetWindowText(abc, "路易斯");   //修改窗口标题 
+MessageBox(abc,  "我用什么才能留住你", "博尔赫斯", MB_OKCANCEL);  //设置对话框
+ 
+
+8、播放音乐
+1.需要的头文件和静态库
+windows.h 和 mmsystem.h
+
+加载静态库  #pragma comment (lib,"winmm.lib") 
+
+2.音乐播放函数 mciSendString
+该函数的参数如下：
+
+ 下面是该函数的使用方法：
+
+//使用方法
+mciSendString("open ./绿色.mp3",NULL,0,NULL);  //打开音乐
+mciSendString("play ./绿色.mp3",NULL,0,NULL);  //播放音乐
+mciSendString("stop ./绿色.mp3",NULL,0,NULL);  //停止播放
+ 
+mciSendString("play ./绿色.mp3 repeat",NULL,0,NULL); //加上repeat后循环播放
+ 
+//通过关键字alias 用BGM代替前面的文件路径
+mciSendString("open ./绿色.mp3 alias BGM",NULL,0,NULL); 
+ 注意：printf();  scanf();函数的输入输出只会在控制台窗口显示，不会出现在绘图窗口
+————————————————
+版权声明：本文为CSDN博主「小菜菜~~」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_52661581/article/details/125124212

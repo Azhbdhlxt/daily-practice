@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include<math.h>
+typedef struct MyLinkedList{//创建链表，定义链表类型 
+    int val;
+   struct MyLinkedList* next;//下级结点地址 
+} MyLinkedList;//链表名字 
+
+//创建链表 
+MyLinkedList* myLinkedListCreate() {
+    MyLinkedList* node = (MyLinkedList*)malloc(sizeof(MyLinkedList));//申请一个内存大小为一个节点的空间，并将指针指向该地址 
+    node->next = NULL;//将该地址中下级结点地址改写为空，创建链表头（head） 
+    return node;//返回修改过的地址 
+}
+
+
+//功能作用：获取链表中某个(index)结点的值，如果索引无效 ，则返回-1. 
+int myLinkedListGet(MyLinkedList* obj, int index) {
+    if(index<0)return -1;//如果结点值小于0，返回值-1； 
+    MyLinkedList* node = obj;//将指针指向链表头 
+    for(int i=0;i<=index;i++){//遍历链表找到第i个结点 
+        if(node->next==NULL)return -1;//如果结点的下级结点地址为空，返回-1； 
+        else node = node->next;
+    }
+    return node->val;//返回该位置的值； 
+}
+
+//功能作用：该函数将链表的第一个元素之前添加一个值为val的结点。插入后，新结点将成为链表的第一个结点。 
+void myLinkedListAddAtHead(MyLinkedList* obj, int val) {
+    MyLinkedList* head = (MyLinkedList*)malloc(sizeof(MyLinkedList));//申请一个结点的空间 给头部 
+    head->val = val;//将插入结点val值改为输入的值； 
+    head->next = obj->next;//将插入结点指向地址改为原链表头指向的地址 
+    obj->next = head;//将链表头指向地址改为插入结点地址 
+}
+
+//功能作用：将值为val的结点追加到链表的最后一个元素 
+void myLinkedListAddAtTail(MyLinkedList* obj, int val) {
+    MyLinkedList* tail = (MyLinkedList*)malloc(sizeof(MyLinkedList));//申请一个结点空间 
+    tail->val = val;//将该结点值改为输入值 
+    tail->next = NULL;//将下级结点地址改为空 
+    MyLinkedList* node = obj;//将指针指向链表头部 
+    while(node->next!=NULL){
+        node = node->next;//遍历结点直至找到链表尾部 
+    }
+    node->next = tail;//将原链表尾部指向地址改为插入结点地址； 
+}
+
+//功能作用：在链表的第index个结点之前添加值为val的结点。如果index等于链表的长度，则将该结点附加到链表的末尾
+//如果index大于链表长度，则不会插入结点。如果index小于0，则在头部插入结点。 
+void myLinkedListAddAtIndex(MyLinkedList* obj, int index, int val) {
+    if(index<0)return;
+    MyLinkedList* node = obj;
+    for(int i=0;i<index;i++){
+        if(node->next==NULL)return;
+        else node = node->next;
+    }
+    MyLinkedList* add = (MyLinkedList*)malloc(sizeof(MyLinkedList));
+    add->val = val;
+    if(node->next!=NULL)add->next = node->next;
+    else add->next = NULL;
+    node->next = add;
+}
+
+//功能作用：如果索引index有效，则删除链表中的第index个结点 
+void myLinkedListDeleteAtIndex(MyLinkedList* obj, int index) {
+    if(index<0)return;
+    MyLinkedList* node = obj;
+    for(int i=0;i<index;i++){
+        if(node->next==NULL)return;
+        else node = node->next;
+    }
+    if(node->next==NULL)return;
+    else node->next = node->next->next;
+}
+
+//功能作用：释放结点，销毁链表 
+void myLinkedListFree(MyLinkedList* obj) {
+    MyLinkedList* node = obj;
+    MyLinkedList* tmp;
+    while(node){
+        tmp = node->next;
+        free(node);
+        node = tmp;
+    }
+}
+
+
+int main()
+{   
+     return 0;
+ }

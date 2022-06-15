@@ -1,0 +1,294 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include <mysql.h>
+#pragma comment (lib,"libmysql.lib")
+ 
+//#pragma comment ( lib,"xxx.lib" )  
+//表示鏈接xxx.lib這個庫，告訴編譯器你要用到xxx.lib庫
+//和在工程設置裡寫上鍊入xxx.lib的效果一樣，不過這種方法寫的程序別人在使用你的代碼的時候就不用再設置工程settings了。
+ 
+MYSQL mysql;
+MYSQL_RES *result;  //定义结果集变量
+MYSQL_ROW row;  //定义行变量
+char ch[2];
+ 
+void inquire() {
+ void menu();
+ printf("\n\t显示主清单<y/n>\n");
+ scanf("%s", ch);
+ if (strcmp(ch, "y") == 0 || strcmp(ch, "Y") == 0) {
+  menu();
+ }
+ else exit(0);
+}
+ 
+void ShowAll() {
+ system("cls");
+ mysql_init(&mysql);
+ mysql_query(&mysql, "set names 'utf8'");
+ if (!mysql_real_connect(&mysql, "localhost", "root", "密码", "db_book", 0, NULL, 0))
+  printf("\ncan't connect db_book!\n");
+ else
+ {
+  if (mysql_query(&mysql, "select * from tb_book"))
+  {
+   printf("查询失败\n");
+  }
+  else {
+   puts("\t|=====================================================|\n");
+   puts("\t|              显 示 所 有 图 书 信 息                |\n");
+   puts("\t|=====================================================|\n");
+   puts("\t|    图书编号       图书名       作者       出版社    |\n");
+   result = mysql_store_result(&mysql);
+   if (mysql_num_rows(result)) {
+    while (row = mysql_fetch_row(result))
+    {
+ printf("\t\t%s\t     %s\t         %s\t    %s\n", row[0], row[1], row[2], row[3]);
+    }
+   }
+   mysql_free_result(result);
+  }
+  puts("\t|=====================================================|\n");
+  getchar();
+  mysql_close(&mysql);//关闭连接
+ }
+}
+ 
+void AddBook() {
+ char id[10];
+ char bookname[10],author[10], bookconcern[10], *sql;
+ char dest[100] = { " " };
+ system("cls");
+ mysql_init(&mysql);
+ if (!mysql_real_connect(&mysql, "localhost", "root", "xin088748*", "db_book", 0, NULL, 0))
+  printf("can not connect\n");
+ else {
+  if (mysql_query(&mysql, "select * from tb_book")) {
+   printf("can not open\n");
+  }
+  else
+  {
+   result = mysql_store_result(&mysql);
+   mysql_num_rows(result);
+   row = mysql_fetch_row(result);
+   printf("\tID:");
+   scanf("%s", id);
+   if (mysql_num_rows(result)) {
+    do {
+     if (!strcmp(id, row[0])) {
+      printf("\t记录存在");
+      getchar();
+      mysql_free_result(result);
+      mysql_close(&mysql);
+      return;
+     }
+    } while (row = mysql_fetch_row(result));
+   }
+ 
+   printf("\t图书名：");
+   scanf("%s", bookname);
+   printf("\t作者：");
+   scanf("%s", author);
+   printf("\t出版社：");
+   scanf("%s", bookconcern);
+   sql = "insert into tb_book (ID,bookname,author,bookconcern) values('";
+   strcat(dest, sql);
+   strcat(dest, id);
+   strcat(dest, "','");
+   strcat(dest, bookname);
+   strcat(dest, "','");
+   strcat(dest, author);
+   strcat(dest, "','");
+   strcat(dest, bookconcern);
+   strcat(dest, "')");
+   if (mysql_query(&mysql, dest))
+    //fprintf(stderr, "error!", mysql_error(&mysql));
+    printf("error!\n");
+   else
+   {
+    mysql_free_result(result);
+   }
+  }
+  mysql_close(&mysql);//关闭连接
+ }
+}
+ 
+void ModifyBook() {
+ system("cls");
+ char dest[100];
+ mysql_init(&mysql);
+ mysql_query(&mysql, "set name 'utf8'");
+ if (!mysql_real_connect(&mysql, "localhost", "root", "xin088748*", "db_book", 0, NULL, 0)) { puts("can't net mysql\n");
+ return;
+ }
+ else {
+  char id[10],*sql;
+  char dest[100] = {" "};
+  printf("请输入你要修改的图书编号：");
+  scanf("%s", id);
+  sql = "select * from tb_book where ID = ";
+  strcat(dest, sql);
+  strcat(dest, id);
+  if (mysql_query(&mysql, dest)) {
+   printf("\n  查询数据表失败\n");
+  }
+  else {
+   result = mysql_store_result(&mysql);
+   if (mysql_num_rows(result)) {
+    puts("\t|=====================================================|\n");
+    puts("\t|              显 示 所 有 图 书 信 息                |\n");
+    puts("\t|=====================================================|\n");
+    puts("\t|    图书编号       图书名       作者       出版社    |\n");
+    while (row = mysql_fetch_row(result)) {
+     printf("\t\t%s\t     %s\t          %s\t     %s\n", row[0], row[1], row[2], row[3]);
+    }
+    printf("Mondify? <y/n>\n");
+    scanf("%s", ch);
+    if (!strcmp(ch, "Y") || !strcmp(ch, "y")) {
+     char bookname[10], author[10], bookconcern[10];
+     char dest1[100] = {" "};
+      printf("\t图书名：");
+      scanf("%s", bookname);
+      printf("\t作者：");
+      scanf("%s", author);
+      printf("\t出版社：");
+      scanf("%s", bookconcern);
+      sql = "update tb_book set bookname = '";
+      strcat(dest1, sql);
+      strcat(dest1, bookname);
+      strcat(dest1, "',author = '");
+      strcat(dest1, author);
+      strcat(dest1, "',bookconcern = '");
+      strcat(dest1, bookconcern);
+      strcat(dest1, "' where ID = '");
+      strcat(dest1, id);
+      strcat(dest1, "'");
+      if (mysql_query(&mysql,dest1)) printf("修改失败\n");
+      else printf("修改成功\n");
+    }
+   }
+   else
+   {
+    printf("没有发现要修改的信息\n");
+ 
+   }
+   mysql_free_result(result);
+  }
+ }
+ mysql_close(&mysql);
+}
+ 
+void DeleteBook() {
+ system("cls");
+ mysql_init(&mysql);
+ if (!mysql_real_connect(&mysql, "localhost", "root", "xin088748*", "db_book", 0, NULL, 0)) {
+  printf("can't net mysql\n");
+ }
+ else {
+  printf("你想要删除的编号：");
+  char id[10];
+  scanf("%s", id);
+  char dest[100] = { " " };
+  char *sql;
+  sql = "select * from tb_book where ID = ";
+  strcat(dest, sql);
+  strcat(dest, id);
+  if (mysql_query(&mysql, dest)) {
+   printf("\n  查询数据表失败\n");
+  }
+  else {
+   result = mysql_store_result(&mysql);
+   if (mysql_num_rows(result)) {
+    puts("\t|=====================================================|\n");
+    puts("\t|              显 示 所 有 图 书 信 息                |\n");
+    puts("\t|=====================================================|\n");
+    puts("\t|    图书编号       图书名       作者       出版社    |\n");
+    while (row = mysql_fetch_row(result)) {
+     printf("\t\t%s\t     %s\t          %s\t     %s\n", row[0], row[1], row[2], row[3]);
+    }
+    printf("Delete? <y/n>\n");
+    scanf("%s", ch);
+    if (!strcmp(ch, "Y") || !strcmp(ch, "y")) {
+     char dest1[100] = { " " };
+     sql = "delete from tb_book where ID = ";
+     strcat(dest1, sql);
+     strcat(dest1, id); 
+     printf("\n%s\t", dest1);
+     if (mysql_query(&mysql, dest1)) printf("删除失败\n");
+     else printf("删除成功\n");
+    }
+   }
+   else puts("没有查询到此数据\n");
+   mysql_free_result(result);
+  }
+ }
+ mysql_close(&mysql);
+}
+ 
+void Querybook() {
+ system("cls");
+ mysql_init(&mysql);
+ if (!mysql_real_connect(&mysql, "localhost", "root", "xin088748*", "db_book", 0, NULL, 0)) {
+  puts("can't net mysql\n");
+  return;
+ }
+ else {
+  char id[10];
+  char *sql, dest[100] = {" "};
+  printf("请输入要查询的图书编号：\n");
+  scanf("%s", id);
+  sql = "select * from tb_book where ID = ";
+  strcat(dest, sql);
+  strcat(dest, id);
+  if (mysql_query(&mysql, dest)) printf("查询失败\n");
+  else {
+   result = mysql_store_result(&mysql);
+   if (mysql_num_rows(result)) {
+    puts("\t|=====================================================|\n");
+    puts("\t|              显 示 所 有 图 书 信 息                |\n");
+    puts("\t|=====================================================|\n");
+    puts("\t|    图书编号       图书名       作者       出版社    |\n");
+    while (row = mysql_fetch_row(result)) {
+     printf("\t\t%s\t     %s\t          %s\t     %s\n", row[0], row[1], row[2], row[3]);
+    }
+   }
+   else puts("没有发现要查询的数据\n");
+   mysql_free_result(result);
+  }
+ }
+ mysql_close(&mysql);
+}
+ 
+void menu() {
+ puts("\t|=====================================================|\n");
+ puts("\t|         Welcome To Lemon Books System               |\n");
+ puts("\t|=====================================================|\n");
+ puts("\t|            1 - 显示所有图书信息                     |\n");
+ puts("\t|            2 - 添加图书信息                         |\n");
+ puts("\t|            3 - 修改图书信息                         |\n");
+ puts("\t|            4 - 删除图书信息                         |\n");
+ puts("\t|            5 - 查询图书信息                         |\n");
+ puts("\t|            6 - 退出图书系统                         |\n");
+ puts("\t|=====================================================|\n\n");
+ 
+ puts("\tENTER YOUR CHOICE<1-6>\n");
+ int i;
+ scanf("%d", &i);
+ while (i > 0 && i < 7) {
+  switch (i) {
+  case 1:ShowAll(); inquire(); break;
+  case 2:AddBook(); inquire(); break;
+  case 3:ModifyBook(); inquire(); break;
+  case 4:DeleteBook(); inquire(); break;
+  case 5:Querybook(); inquire(); break;
+  default:puts("enter error!please enter again\n"); exit(0);
+  }
+  scanf("%d",&i);
+ }
+}
+ 
+int main()
+{
+ menu();
+}

@@ -1,0 +1,15 @@
+#include <stdio.h>
+void main()
+{
+     FILE *fp;
+     
+    fp=fopen("mydata.txt","w");
+    
+    if (fp==NULL)
+    
+       printf("file open error!\n");
+       
+    else
+    
+       printf("file open OK!\n");
+}

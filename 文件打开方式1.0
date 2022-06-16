@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+void main()
+{
+    FILE *fp;
+    
+    if ((fp=fopen("text.txt","w"))==NULL)
+    
+        {
+        
+          printf("file open error!\n");
+          
+          exit(0);
+          
+        }
+    else
+    
+        printf("file open OK!\n");
+}
